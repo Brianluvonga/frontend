@@ -10,6 +10,7 @@ const Upload = () => {
         model: '',
         description: '',
         image: null,
+        imagePreview: null, // Added state for image preview
         price: '',
         quantity: '',
     });
@@ -23,9 +24,11 @@ const Upload = () => {
     };
 
     const handleImageChange = (event) => {
+        const selectedImage = event.target.files[0];
         setFormData({
             ...formData,
-            image: event.target.files[0],
+            image: selectedImage,
+            imagePreview: URL.createObjectURL(selectedImage), // Create a preview URL for the selected image
         });
     };
 
@@ -77,14 +80,13 @@ const Upload = () => {
                             Home
                         </Link>
                         <span className="mx-2">/</span>
-                        <Link href="./upload_part"
-                            className="text-blue-600">Upload
-                        </Link>
+                        <span className="text-gray-600">Upload</span>
+
                     </nav>
                 </div>
             </div>
 
-            <div className="container mx-auto p-4">
+            <div className="container mx-auto p-4 ">
                 <h1 className="text-2xl font-bold mb-8 font-serif">Upload Car Part</h1>
                 <form onSubmit={handleSubmit} className="max-w-xl mx-auto">
                     <div className="mb-4">
@@ -101,19 +103,35 @@ const Upload = () => {
                             required
                         />
                     </div>
-                    <div className="mb-4">
-                        <label htmlFor="manufacturer" className="block text-gray-700 text-sm font-bold mb-2">
-                            Manufacturer
-                        </label>
-                        <input
-                            type="text"
-                            id="manufacturer"
-                            name="manufacturer"
-                            value={formData.manufacturer}
-                            onChange={handleInputChange}
-                            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-gray-400"
-                            required
-                        />
+                    <div className="mb-4 flex">
+                        <div className="w-1/2 pr-2">
+                            <label htmlFor="manufacturer" className="block text-gray-700 text-sm font-bold mb-2">
+                                Manufacturer
+                            </label>
+                            <input
+                                type="text"
+                                id="manufacturer"
+                                name="manufacturer"
+                                value={formData.manufacturer}
+                                onChange={handleInputChange}
+                                className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-gray-400"
+                                required
+                            />
+                        </div>
+                        <div className="w-1/2 pl-2">
+                            <label htmlFor="model" className="block text-gray-700 text-sm font-bold mb-2">
+                                Model
+                            </label>
+                            <input
+                                type="text"
+                                id="model"
+                                name="model"
+                                value={formData.model}
+                                onChange={handleInputChange}
+                                className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-gray-400"
+                                required
+                            />
+                        </div>
                     </div>
                     <div className="mb-4">
                         <label htmlFor="location" className="block text-gray-700 text-sm font-bold mb-2">
@@ -129,20 +147,7 @@ const Upload = () => {
                             required
                         />
                     </div>
-                    <div className="mb-4">
-                        <label htmlFor="model" className="block text-gray-700 text-sm font-bold mb-2">
-                            Model
-                        </label>
-                        <input
-                            type="text"
-                            id="model"
-                            name="model"
-                            value={formData.model}
-                            onChange={handleInputChange}
-                            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-gray-400"
-                            required
-                        />
-                    </div>
+
                     <div className="mb-4">
                         <label htmlFor="description" className="block text-gray-700 text-sm font-bold mb-2">
                             Description
@@ -170,34 +175,39 @@ const Upload = () => {
                             accept="image/*"
                             required
                         />
+                        {formData.imagePreview && (
+                            <img src={formData.imagePreview} alt="Image Preview" className="mt-2 max-w-xs" />
+                        )}
                     </div>
-                    <div className="mb-4">
-                        <label htmlFor="price" className="block text-gray-700 text-sm font-bold mb-2">
-                            Price
-                        </label>
-                        <input
-                            type="number"
-                            id="price"
-                            name="price"
-                            value={formData.price}
-                            onChange={handleInputChange}
-                            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-gray-400"
-                            required
-                        />
-                    </div>
-                    <div className="mb-4">
-                        <label htmlFor="quantity" className="block text-gray-700 text-sm font-bold mb-2">
-                            Quantity
-                        </label>
-                        <input
-                            type="number"
-                            id="quantity"
-                            name="quantity"
-                            value={formData.quantity}
-                            onChange={handleInputChange}
-                            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-gray-400"
-                            required
-                        />
+                    <div className="mb-4 flex">
+                        <div className="w-1/2 pr-2">
+                            <label htmlFor="price" className="block text-gray-700 text-sm font-bold mb-2">
+                                Price
+                            </label>
+                            <input
+                                type="number"
+                                id="price"
+                                name="price"
+                                value={formData.price}
+                                onChange={handleInputChange}
+                                className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-gray-400"
+                                required
+                            />
+                        </div>
+                        <div className="w-1/2 pl-2">
+                            <label htmlFor="quantity" className="block text-gray-700 text-sm font-bold mb-2">
+                                Quantity
+                            </label>
+                            <input
+                                type="number"
+                                id="quantity"
+                                name="quantity"
+                                value={formData.quantity}
+                                onChange={handleInputChange}
+                                className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-gray-400"
+                                required
+                            />
+                        </div>
                     </div>
                     <div className="mt-6">
                         <button

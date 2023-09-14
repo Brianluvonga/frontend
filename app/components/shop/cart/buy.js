@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import { Link } from 'react-router-dom';
 
 const CarCard = ({ car, onCarClick }) => (
     <div className="bg-white shadow rounded-lg p-4 cursor-pointer font-serif transition duration-300 ease-in-out transform hover:scale-105" onClick={() => onCarClick(car)}>
