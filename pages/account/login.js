@@ -3,15 +3,17 @@ import 'tailwindcss/tailwind.css';
 import Link from 'next/link';
 import axios from 'axios';
 import Footer from 'pages/footer/Footer';
-
+import Dashboard from "pages/account/dashboard/dashboard"; 
 
 
 const LoginScreen = () => {
     const [loginData, setLoginData] = useState({
         email: '',
         password: '',
-    });
 
+    });
+    const [userId, setUserId] = useState({});
+    const [userDetails, setUserDetails] = useState({});
     const [isLoggingIn, setIsLoggingIn] = useState(false);
     const [loginError, setLoginError] = useState('');
     const [loginSuccess, setLoginSuccess] = useState(false);
@@ -56,14 +58,19 @@ const LoginScreen = () => {
         })
             .then((response) => {
                 console.log(response.data);
+                // Store the user ID in state
+                const user_Id = response.data.userId; // Replace 'user_id' with the actual key used in the response
+                setUserId(user_Id);
                 setLoginData({
                     email: '',
                     password: '',
                 });
                 setIsLoggingIn(false);
                 setLoginSuccess(true); // Set login success
-                // Redirect after successful login (you can replace '/dashboard' with the desired URL)
-                window.location.href = '/dashboard';
+                fetchUserDetails(user_Id);
+                // Redirect after successful login 
+
+                window.location.href = '/account/dashboard/dashboard';
             })
             .catch((error) => {
                 console.error(error);
@@ -71,7 +78,19 @@ const LoginScreen = () => {
                 setLoginError('Invalid email or password.'); // Customize this error message
             });
     };
-
+    const fetchUserDetails = (user) => {
+        // Make an API request to fetch user details using the user's ID
+        const userDetailUrl = `http://127.0.0.1:8000/get_user/${user}/`; // Replace with the actual URL
+        axios
+            .get(userDetailUrl)
+            .then((response) => {
+                const userData = response.data;
+                setUserDetails(userData);
+            })
+            .catch((error) => {
+                console.error("Error fetching user details:", error);
+            });
+    };
 
 
 
@@ -100,7 +119,7 @@ const LoginScreen = () => {
                             <li>Stay updated with the latest news and announcements.</li>
                         </ul>
                     </div>
-                    <div className="md:w-1/2 p-8">
+                    <div className="md:w-1/2 p-8 ">
                         <div className="bg-gray-50 rounded-r-lg shadow-lg p-8">
                             <h1 className="text-4xl font-bold mb-4 text-center">Log In</h1>
                             <form onSubmit={handleLoginSubmit}>
@@ -163,6 +182,16 @@ const LoginScreen = () => {
                     </div>
                 </div>
             </div>
+
+            {loginSuccess && (
+                <div>
+                    <h2>User Details:</h2>
+                    <p>Name: {userDetails.firstName} {userDetails.lastName}</p>
+                    <p>Email: {userDetails.email}</p>
+                    {/* Display other user details here */}
+                </div>
+            )}
+            {userId && <Dashboard userId={userId} />}
             <Footer />
 
         </>

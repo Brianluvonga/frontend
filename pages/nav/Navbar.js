@@ -4,7 +4,6 @@
 import Link from 'next/link';
 
 import React, { useState } from "react";
-import Images from './images'
 
 
 const Navbar = () => {
@@ -75,7 +74,7 @@ const Navbar = () => {
                         className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-black font-bold items-center justify-center font-serif hover:text-gray-400">
                         Parts
 
-                    </Link><a href="" onClick={() => handleMenuItemClick('/shop/shop')}
+                    </Link><a href="/shop/cart/buy" onClick={() => handleMenuItemClick('/shop/shop')}
                         className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-black font-bold items-center justify-center font-serif hover:text-gray-400">
                         Shop
 

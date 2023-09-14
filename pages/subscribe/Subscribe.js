@@ -67,12 +67,13 @@ const SubscribeSection = () => {
                     <div className="max-w-md mx-auto">
                         <form onSubmit={handleSubmit} >
                             <input
-                                className="flex-grow py-3 px-4 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-200"
+                                className="flex-grow py-3 px-4 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-gray-100 bg-gray-200"
                                 type="email"
                                 name="email"
                                 placeholder="Enter your email address"
                                 value={formData.email}
                                 onChange={handleInputChange}
+                                required
                             />
                             <button
                                 className="bg-black hover:bg-white hover:text-black text-white py-3 px-6 rounded-r-lg transition duration-300 ease-in-out"

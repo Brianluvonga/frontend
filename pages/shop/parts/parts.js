@@ -1,4 +1,3 @@
-import ProfileComponent from '@/pages/account/profile/profile';
 import Link from 'next/link';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
@@ -96,7 +95,6 @@ const CarPartsList = () => {
                         <span className="mx-2">/</span>
                         <span className="text-gray-600">Parts</span>
                     </nav>
-                    <ProfileComponent />
                 </div>
             </div>
 
