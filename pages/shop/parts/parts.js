@@ -16,9 +16,23 @@ const UploadButton = () => {
     );
 };
 
-
+const handleAddToCartClick = () => {
+    setIsAddingToCart(true);
+    onAddToCart({
+        part_name,
+        manufacturer,
+        location,
+        model,
+        description,
+        image,
+        price,
+        quantity,
+        seller,
+    });
+};
 
 const CarParts = ({ part_name, manufacturer, location, model, description, image, price, quantity, seller }) => (
+
     <div className="bg-white shadow rounded-lg p-4 font-serif">
         <img className="h-48 w-full object-cover rounded-lg mb-4" src={image} alt={part_name} />
         <h2 className="text-xl font-bold mb-2">{part_name}</h2>
@@ -36,7 +50,7 @@ const CarParts = ({ part_name, manufacturer, location, model, description, image
         <p className="text-gray-500 text-sm mt-2">{description}</p>
         <div className="flex justify-between items-end mt-4">
             <p className="text-lg font-bold">Kshs.{price}</p>
-            {/* You can add any other buttons/icons here */}
+          
         </div>
     </div>
 );
@@ -52,6 +66,7 @@ const CarPartsList = () => {
 
     const [carParts, setCarParts] = useState([]);
     const [selectedPart, setSelectedPart] = useState(null); // State to manage selected car part
+
 
     // Function to open the modal and set the selected car part
     const handleOpenModal = (part) => {

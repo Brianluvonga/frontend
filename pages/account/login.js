@@ -3,7 +3,8 @@ import 'tailwindcss/tailwind.css';
 import Link from 'next/link';
 import axios from 'axios';
 import Footer from 'pages/footer/Footer';
-import Dashboard from "pages/account/dashboard/dashboard"; 
+import { useRouter } from 'next/router';
+import Profile from './user/profile';
 
 
 const LoginScreen = () => {
@@ -12,11 +13,11 @@ const LoginScreen = () => {
         password: '',
 
     });
-    const [userId, setUserId] = useState({});
-    const [userDetails, setUserDetails] = useState({});
+
     const [isLoggingIn, setIsLoggingIn] = useState(false);
     const [loginError, setLoginError] = useState('');
     const [loginSuccess, setLoginSuccess] = useState(false);
+    const [userDetails, setUserDetails] = useState(null);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -36,6 +37,18 @@ const LoginScreen = () => {
             return null;
         }
     };
+    const router = useRouter();
+    // Function to fetch user details by email and log them to the console
+    const fetchUserDetails = async (id) => {
+        try {
+            const response = await axios.get(`http://127.0.0.1:8000/user/${id}/`);
+            const user = response.data;
+            setUserDetails(userDetails);
+            console.log("User Details:", user);
+        } catch (error) {
+            console.error('Error fetching user data:', error);
+        }
+    };
 
     const handleLoginSubmit = (e) => {
         e.preventDefault();
@@ -44,7 +57,6 @@ const LoginScreen = () => {
         const csrfToken = getCSRFToken();
         const url = 'http://127.0.0.1:8000/api/login/';
 
-        console.log(loginData.email, loginData.password)
 
         axios.post(url, loginData, {
             withCredentials: true,
@@ -58,19 +70,20 @@ const LoginScreen = () => {
         })
             .then((response) => {
                 console.log(response.data);
-                // Store the user ID in state
-                const user_Id = response.data.userId; // Replace 'user_id' with the actual key used in the response
-                setUserId(user_Id);
+
                 setLoginData({
                     email: '',
                     password: '',
                 });
                 setIsLoggingIn(false);
                 setLoginSuccess(true); // Set login success
-                fetchUserDetails(user_Id);
+                // Fetch user details after successful login
+                fetchUserDetails();
                 // Redirect after successful login 
 
-                window.location.href = '/account/dashboard/dashboard';
+                router.push(`./user/profile/`);
+
+                // window.location.href = '/account/dashboard/dashboard';
             })
             .catch((error) => {
                 console.error(error);
@@ -78,20 +91,6 @@ const LoginScreen = () => {
                 setLoginError('Invalid email or password.'); // Customize this error message
             });
     };
-    const fetchUserDetails = (user) => {
-        // Make an API request to fetch user details using the user's ID
-        const userDetailUrl = `http://127.0.0.1:8000/get_user/${user}/`; // Replace with the actual URL
-        axios
-            .get(userDetailUrl)
-            .then((response) => {
-                const userData = response.data;
-                setUserDetails(userData);
-            })
-            .catch((error) => {
-                console.error("Error fetching user details:", error);
-            });
-    };
-
 
 
     return (
@@ -183,15 +182,7 @@ const LoginScreen = () => {
                 </div>
             </div>
 
-            {loginSuccess && (
-                <div>
-                    <h2>User Details:</h2>
-                    <p>Name: {userDetails.firstName} {userDetails.lastName}</p>
-                    <p>Email: {userDetails.email}</p>
-                    {/* Display other user details here */}
-                </div>
-            )}
-            {userId && <Dashboard userId={userId} />}
+            {loginSuccess && userDetails && <Profile userDetails={userDetails} />}
             <Footer />
 
         </>
