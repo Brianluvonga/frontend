@@ -55,9 +55,7 @@ const CarDetails = ({ car, onClose }) => (
                         <p>Location: {car.location}</p>
                         <p>Seller: {car.seller}</p>
                     </div>
-                    <div className="flex justify-left mt-8">
-                        <button className="bg-black hover:bg-gray-500 text-white py-2 px-4 rounded-lg">Add to Cart</button>
-                    </div>
+                 
                 </div>
             </div>
         </div>

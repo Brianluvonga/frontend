@@ -3,10 +3,10 @@
 
 import Navbar from 'pages/nav/Navbar';
 import Footer from 'pages/footer/Footer';
-import Rebuilds from './components/shop/rebuilds';
+import Rebuilds from 'pages/shop/rebuilds';
 import Parts from 'pages/main/partners';
 import About from 'pages/about/About';
-import Buy from './components/shop/cart/buy';
+import Buy from 'pages/shop/shop';
 
 import ContactSection from 'pages/contacts/contact';
 

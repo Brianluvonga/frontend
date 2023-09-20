@@ -62,7 +62,7 @@ const ContactSection = () => {
 
     return (
         <>
-            <div className="py-4 px-4 font-serif">
+            {/* <div className="py-4 px-4 font-serif">
                 <div className="container mx-auto">
                     <nav className="text-sm">
                         <Link href="/"
@@ -72,7 +72,7 @@ const ContactSection = () => {
                         <span className="text-gray-600">Contact Us</span>
                     </nav>
                 </div>
-            </div>
+            </div> */}
 
             <div>
 

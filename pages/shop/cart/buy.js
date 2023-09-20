@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import 'tailwindcss/tailwind.css';
 import Footer from "pages/footer/Footer";
+import Link from 'next/link';
+
 
 
 const Shop = () => {
@@ -56,6 +58,7 @@ const Shop = () => {
     const [selectedCar, setSelectedCar] = useState(null);
     const [cartItems, setCartItems] = useState([]);
     const [isCartOpen, setIsCartOpen] = useState(false);
+
 
     const handleCarClick = (car) => {
         setSelectedCar(car);
@@ -149,86 +152,14 @@ const Shop = () => {
         </div>
     );
 
-    const CartItem = ({ item, onUpdateQuantity, onRemove }) => (
-        <div className="flex items-center justify-between p-2 border-b border-gray-300">
-            <div className="flex items-center space-x-4">
-                <img
-                    className="h-16 w-16 object-cover rounded-lg"
-                    src={item.images[0]}
-                    alt={item.name}
-                />
-                <div>
-                    <h3 className="text-lg font-semibold">{item.name}</h3>
-                    <p className="text-gray-500">{item.price}</p>
-                </div>
-            </div>
-            <div className="flex items-center space-x-4">
-                <div className="flex items-center space-x-2">
-                    <button
-                        onClick={() => onUpdateQuantity(item, -1)}
-                        className="text-gray-600 hover:text-gray-900 focus:outline-none"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-5 w-5"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                        >
-                            <path
-                                fillRule="evenodd"
-                                d="M5.293 6.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                clipRule="evenodd"
-                            />
-                        </svg>
-                    </button>
-                    <span className="text-xl font-semibold">{item.quantity}</span>
-                    <button
-                        onClick={() => onUpdateQuantity(item, 1)}
-                        className="text-gray-600 hover:text-gray-900 focus:outline-none"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-5 w-5"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                        >
-                            <path
-                                fillRule="evenodd"
-                                d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                                clipRule="evenodd"
-                            />
-                        </svg>
-                    </button>
-                </div>
-                <button
-                    onClick={() => onRemove(item)}
-                    className="text-red-600 hover:text-red-900 focus:outline-none"
-                >
-                    Remove
-                </button>
-            </div>
-        </div>
-    );
+
 
     const CartIcon = () => {
         const cartItemCount = cartItems.length;
 
         return (
             <div className="relative cursor-pointer" onClick={handleOpenCart}>
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6 text-gray-700"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                >
-                    <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 20a2 2 0 01-2-2h14a2 2 0 01-2 2H9zM9 9a3 3 0 100-6 3 3 0 000 6z"
-                    />
-                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16"> <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" /> </svg>
                 {cartItemCount > 0 && (
                     <div className="absolute top-0 right-0 bg-red-500 text-white w-5 h-5 flex items-center justify-center rounded-full text-xs">
                         {cartItemCount}
@@ -241,25 +172,33 @@ const Shop = () => {
     return (
         <>
             {/* Navigation bar */}
-            <nav className="bg-gray-800 py-4 px-8 text-white">
+            <nav className="bg-gray-100 py-4 px-8 text-black font-serif">
                 <div className="container mx-auto flex items-center justify-between">
                     <h1 className="text-2xl font-bold font-serif">Shop</h1>
+                    <h1></h1>
                     <CartIcon />
                 </div>
             </nav>
+
+            <div className="py-4 px-4 font-serif">
+                <div className="container mx-auto">
+                    <nav className="text-sm">
+                        <Link href="/"
+                            className="text-blue-600">Home
+                        </Link>
+                        <span className="mx-2">/</span>
+                        <span className="text-gray-600">Shop</span>
+                    </nav>
+                </div>
+            </div>
             <div className="container mx-auto p-4">
-                <h1 className="text-2xl font-bold mb-8 font-serif">Shop</h1>
+                {/* <h1 className="text-2xl font-bold mb-8 font-serif">Shop</h1> */}
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                     {cars.map((car) => (
                         <div key={car.id} className="relative">
                             <CarCard car={car} onCarClick={handleCarClick} />
-                            {/* <button
-                                onClick={() => handleAddToCart(car)}
-                                className="absolute top-2 right-2 p-2 bg-blue-500 text-white rounded-full focus:outline-none"
-                            >
-                                Add to Cart
-                            </button> */}
+
                         </div>
                     ))}
                 </div>
@@ -270,17 +209,7 @@ const Shop = () => {
 
                 {/* Cart section */}
                 <div className="mt-8">
-                    {/* <h2 className="text-xl font-semibold mb-4 font-serif">
-                        Cart
-                        {cartItems.length > 0 && (
-                            <button
-                                onClick={handleOpenCart}
-                                className="ml-2 bg-blue-500 text-white px-2 py-1 rounded-full text-sm"
-                            >
-                                View Cart
-                            </button>
-                        )}
-                    </h2> */}
+
                     {cartItems.length === 0 ? (
                         <p>Your cart is empty.</p>
                     ) : (
