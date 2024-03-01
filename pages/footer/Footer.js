@@ -60,7 +60,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="px-4 py-6 bg-gray-100 dark:bg-gray-700 md:flex md:items-center md:justify-center">
-          <span className="text-sm text-gray-500 dark:text-gray-300 sm:text-center">© 2023 <a href="">ClassicsKe</a>. All Rights Reserved.</span>
+          <span className="text-sm text-gray-500 dark:text-gray-300 sm:text-center">© 2024 <a href="">ClassicsKe</a>. All Rights Reserved.</span>
           {/* <div className="flex mt-4 space-x-6 sm:justify-center md:mt-0">
             <a href="#" className="text-gray-400 hover:text-gray-900 dark:hover:text-white">
               <span className="sr-only">Facebook</span>

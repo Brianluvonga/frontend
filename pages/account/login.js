@@ -3,7 +3,6 @@ import 'tailwindcss/tailwind.css';
 import Link from 'next/link';
 import axios from 'axios';
 import Footer from 'pages/footer/Footer';
-import { useRouter } from 'next/router';
 import Profile from './user/profile';
 
 
@@ -17,7 +16,7 @@ const LoginScreen = () => {
     const [isLoggingIn, setIsLoggingIn] = useState(false);
     const [loginError, setLoginError] = useState('');
     const [loginSuccess, setLoginSuccess] = useState(false);
-    const [userDetails, setUserDetails] = useState(null);
+    const [userDetails, setUserDetails] = useState();
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -37,59 +36,119 @@ const LoginScreen = () => {
             return null;
         }
     };
-    const router = useRouter();
-    // Function to fetch user details by email and log them to the console
-    const fetchUserDetails = async (id) => {
+
+
+    const fetchUserDetails = async (userId) => {
         try {
-            const response = await axios.get(`http://127.0.0.1:8000/user/${id}/`);
-            const user = response.data;
-            setUserDetails(userDetails);
+            const response = await axios.get(`http://127.0.0.1:8000/user/${userId}/`);
+            const user = response.data;  // Assuming the user data is directly available in the response
+            // setUserDetails(user);
             console.log("User Details:", user);
+            return user;  // Make sure to return the user data
         } catch (error) {
             console.error('Error fetching user data:', error);
+            return null;
         }
     };
 
-    const handleLoginSubmit = (e) => {
+
+    // const handleLoginSubmit = async (e) => {
+    //     e.preventDefault();
+    //     setIsLoggingIn(true);
+
+    //     const csrfToken = getCSRFToken();
+    //     const url = 'http://127.0.0.1:8000/api/login/';
+
+
+    //     const response = axios.post(url, loginData, {
+    //         withCredentials: true,
+    //         headers: {
+    //             'X-CSRFToken': csrfToken
+    //         },
+    //     })
+    //         // .then((response) => {
+    //         //     console.log(response.data);
+
+    //         //     setLoginData({
+    //         //         email: '',
+    //         //         password: '',
+    //         //     });
+    //         //     setIsLoggingIn(false);
+    //         //     setLoginSuccess(true); // Set login success
+
+    //         //     // Fetch user details after successful login
+    //         //     const userId = response.data.id;
+    //         //     console.log("User ID:", userId);
+
+    //         //     // Fetch user details after successful login
+    //         //     fetchUserDetails(userId)
+    //         //         .then((user) => {
+    //         //             if (user) {
+    //         //                 setUserDetails(user);
+    //         //             }
+    //         //         }
+    //         //         );
+
+
+    //         //     // Redirect after successful login 
+    //         //     // router.push(`./user/profile/`);
+    //         // })
+    //         // .catch((error) => {
+    //         //     console.error(error);
+    //         //     setIsLoggingIn(false);
+    //         //     setLoginError('Invalid email or password.'); // Customize this error message
+    //         // });
+    //         try {
+    //             // Validate response structure before accessing userId
+    //             if (!response.data || !response.data.id) {
+    //               throw new Error('Invalid response data');
+    //             }
+
+    //             const userId = response.data;
+    //             console.log("User ID:", userId);
+
+    //             const user = await fetchUserDetails(userId);
+    //             console.log("User Details:", user);
+    //             setUserDetails(user);
+    //             setLoginSuccess(true); // Assuming login is successful after fetching details
+    //           } catch (error) {
+    //             console.error('Error fetching user data:', error);
+    //             setLoginError('Error retrieving user details.');
+    //           } finally {
+    //             setIsLoggingIn(false);
+    //           }
+    // };
+
+    const handleLoginSubmit = async (e) => {
         e.preventDefault();
         setIsLoggingIn(true);
 
-        const csrfToken = getCSRFToken();
-        const url = 'http://127.0.0.1:8000/api/login/';
+        try {
+            const csrfToken = getCSRFToken();
+            const url = 'http://127.0.0.1:8000/api/login/';
+            const response = await axios.post(url, loginData, {
+                withCredentials: true,
 
-
-        axios.post(url, loginData, {
-            withCredentials: true,
-            params: {
-                email: loginData.email,
-                password: loginData.password,
-            },
-            headers: {
-                'X-CSRFToken': csrfToken
-            },
-        })
-            .then((response) => {
-                console.log(response.data);
-
-                setLoginData({
-                    email: '',
-                    password: '',
-                });
-                setIsLoggingIn(false);
-                setLoginSuccess(true); // Set login success
-                // Fetch user details after successful login
-                fetchUserDetails();
-                // Redirect after successful login 
-
-                router.push(`./user/profile/`);
-
-                // window.location.href = '/account/dashboard/dashboard';
-            })
-            .catch((error) => {
-                console.error(error);
-                setIsLoggingIn(false);
-                setLoginError('Invalid email or password.'); // Customize this error message
+                headers: {
+                    'X-CSRFToken': csrfToken,
+                },
             });
+
+            // Assuming the response contains the user ID
+            const userId = response.data.id; // Update this based on the actual response structure
+
+            console.log("User ID:", userId);
+
+            const user = await fetchUserDetails(userId);
+            console.log("User Details:", user);
+            setUserDetails(user);
+            setLoginSuccess(true); // Assuming login is successful after fetching details
+        } catch (error) {
+            console.error('Error fetching user data:', error);
+            setLoginError('Error retrieving user details.');
+        } finally {
+            setIsLoggingIn(false);
+        }
     };
 
 
@@ -182,7 +241,7 @@ const LoginScreen = () => {
                 </div>
             </div>
 
-            {loginSuccess && userDetails && <Profile userDetails={userDetails} />}
+            {loginSuccess && userDetails && <Profile userId={userDetails.id} />}
             <Footer />
 
         </>

@@ -7,12 +7,14 @@ const fetchUserDetails = async (userId) => {
     try {
         const response = await axios.get(`http://127.0.0.1:8000/user/${userId}/`);
         const user = response.data;
+        console.log("Fetched user details:", user);
         return user;
     } catch (error) {
         console.error('Error fetching user data:', error);
         return null;
     }
 };
+
 
 
 const UserProfile = ({ userId }) => {
@@ -36,9 +38,9 @@ const UserProfile = ({ userId }) => {
     return (
         <div>
             <h2>User Profile</h2>
-            <p>Email: {userData.email}</p>
-            <p>First Name: {userData.firstName}</p>
-            <p>Last Name: {userData.lastName}</p>
+            {userData.email && <p>Email: {userData.email}</p>}
+            {userData.firstName && <p>First Name: {userData.firstName}</p>}
+            {userData.lastName && <p>Last Name: {userData.lastName}</p>}
             {/* Display other user details here */}
         </div>
     );
