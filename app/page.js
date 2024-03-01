@@ -4,8 +4,8 @@
 import Navbar from 'pages/nav/Navbar';
 import Footer from 'pages/footer/Footer';
 import Rebuilds from 'pages/shop/rebuilds';
-import Parts from 'pages/main/partners';
-import About from 'pages/about/About';
+import Msg from 'pages/message/message';
+import Search from 'pages/search/search';
 import Buy from 'pages/shop/shop';
 
 import ContactSection from 'pages/contacts/contact';
@@ -27,7 +27,8 @@ export default function Home() {
       <Navbar />
 
       {/* partners */}
-      <Parts />
+      <Search />
+      <Msg />
 
       {/* Rebuilds */}
       <Rebuilds />
