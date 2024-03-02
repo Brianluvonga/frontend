@@ -4,26 +4,25 @@ import Link from 'next/link';
 import axios from 'axios';
 import Footer from 'pages/footer/Footer';
 import Profile from './user/profile';
+import { useRouter } from 'next/router';
 
 
 const LoginScreen = () => {
+
+    const router = useRouter();
+
     const [loginData, setLoginData] = useState({
         email: '',
-        password: '',
-
+        password: ''
     });
-
-    const [isLoggingIn, setIsLoggingIn] = useState(false);
     const [loginError, setLoginError] = useState('');
+    const [isLoggingIn, setIsLoggingIn] = useState(false);
     const [loginSuccess, setLoginSuccess] = useState(false);
-    const [userDetails, setUserDetails] = useState();
+    const [userDetails, setUserDetails] = useState(null);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setLoginData({
-            ...loginData,
-            [name]: value,
-        });
+        setLoginData({ ...loginData, [name]: value });
     };
 
     const getCSRFToken = async () => {
@@ -37,13 +36,10 @@ const LoginScreen = () => {
         }
     };
 
-
     const fetchUserDetails = async (userId) => {
         try {
             const response = await axios.get(`http://127.0.0.1:8000/user/${userId}/`);
-            const user = response.data;  // Assuming the user data is directly available in the response
-            // setUserDetails(user);
-            console.log("User Details:", user);
+            const user = response.data;
             return user;  // Make sure to return the user data
         } catch (error) {
             console.error('Error fetching user data:', error);
@@ -52,105 +48,54 @@ const LoginScreen = () => {
     };
 
 
-    // const handleLoginSubmit = async (e) => {
-    //     e.preventDefault();
-    //     setIsLoggingIn(true);
-
-    //     const csrfToken = getCSRFToken();
-    //     const url = 'http://127.0.0.1:8000/api/login/';
-
-
-    //     const response = axios.post(url, loginData, {
-    //         withCredentials: true,
-    //         headers: {
-    //             'X-CSRFToken': csrfToken
-    //         },
-    //     })
-    //         // .then((response) => {
-    //         //     console.log(response.data);
-
-    //         //     setLoginData({
-    //         //         email: '',
-    //         //         password: '',
-    //         //     });
-    //         //     setIsLoggingIn(false);
-    //         //     setLoginSuccess(true); // Set login success
-
-    //         //     // Fetch user details after successful login
-    //         //     const userId = response.data.id;
-    //         //     console.log("User ID:", userId);
-
-    //         //     // Fetch user details after successful login
-    //         //     fetchUserDetails(userId)
-    //         //         .then((user) => {
-    //         //             if (user) {
-    //         //                 setUserDetails(user);
-    //         //             }
-    //         //         }
-    //         //         );
-
-
-    //         //     // Redirect after successful login 
-    //         //     // router.push(`./user/profile/`);
-    //         // })
-    //         // .catch((error) => {
-    //         //     console.error(error);
-    //         //     setIsLoggingIn(false);
-    //         //     setLoginError('Invalid email or password.'); // Customize this error message
-    //         // });
-    //         try {
-    //             // Validate response structure before accessing userId
-    //             if (!response.data || !response.data.id) {
-    //               throw new Error('Invalid response data');
-    //             }
-
-    //             const userId = response.data;
-    //             console.log("User ID:", userId);
-
-    //             const user = await fetchUserDetails(userId);
-    //             console.log("User Details:", user);
-    //             setUserDetails(user);
-    //             setLoginSuccess(true); // Assuming login is successful after fetching details
-    //           } catch (error) {
-    //             console.error('Error fetching user data:', error);
-    //             setLoginError('Error retrieving user details.');
-    //           } finally {
-    //             setIsLoggingIn(false);
-    //           }
-    // };
-
     const handleLoginSubmit = async (e) => {
         e.preventDefault();
         setIsLoggingIn(true);
 
         try {
-            const csrfToken = getCSRFToken();
+            const csrfToken = await getCSRFToken();
             const url = 'http://127.0.0.1:8000/api/login/';
+
             const response = await axios.post(url, loginData, {
                 withCredentials: true,
-
                 headers: {
                     'X-CSRFToken': csrfToken,
                 },
             });
 
-            // Assuming the response contains the user ID
-            const userId = response.data.id; // Update this based on the actual response structure
+            // Check if login was successful
+            if (response.status === 200) {
+                const userData = response.data; // Assuming the response contains user data
 
-            console.log("User ID:", userId);
+                // Log the entire userData object
+                console.log("User data:", userData);
 
-            const user = await fetchUserDetails(userId);
-            console.log("User Details:", user);
-            setUserDetails(user);
-            setLoginSuccess(true); // Assuming login is successful after fetching details
+                setUserDetails(userData); // Assuming user data is directly available
+                setLoginSuccess(true);
+
+                // Log the user's ID
+                console.log("User ID:", userData.id);
+
+                // Fetch user details after successful login
+                const user = await fetchUserDetails(userData.id);
+                if (user) {
+                    setUserDetails(user);
+                    setLoginSuccess(true);
+                    router.push('user/profile');
+                } else {
+                    setLoginError('Error retrieving user details.');
+                }
+            } else {
+                // Handle invalid response status
+                setLoginError('Invalid response from server');
+            }
         } catch (error) {
-            console.error('Error fetching user data:', error);
-            setLoginError('Error retrieving user details.');
+            console.error('Error logging in:', error);
+            setLoginError('Invalid email or password.');
         } finally {
             setIsLoggingIn(false);
         }
     };
-
 
     return (
         <>
@@ -243,7 +188,6 @@ const LoginScreen = () => {
 
             {loginSuccess && userDetails && <Profile userId={userDetails.id} />}
             <Footer />
-
         </>
     );
 };

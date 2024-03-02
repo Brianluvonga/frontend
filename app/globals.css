@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 
-:root {
+/* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
@@ -23,7 +23,7 @@ body {
   background: linear-gradient(to bottom,
       transparent,
       rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
-}
+} */
 
 
 /* navbar */
@@ -41,14 +41,26 @@ body {
   font-size: 1.5rem;
   font-weight: bold;
   letter-spacing: 1px;
-} */
+}
 
-
-
-.menu-link:hover {
+*/ .menu-link:hover {
   background-color: #e5e7eb;
-} */
+}
 
+*/ .navbar-container {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  transition: all 0.3s ease;
+  /* Add smooth transition */
+}
+
+/* Center align menu items */
+.navbar-container .lg-inline-flex {
+  justify-content: center;
+}
 
 
 
@@ -99,5 +111,3 @@ body {
 .subscribe-section button:hover {
   background-color: #ffc3a0;
 }
-
-

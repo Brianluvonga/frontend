@@ -12,25 +12,27 @@ const vehicles = [
 ];
 
 const ShopForCar = () => {
-    //  const router = useRouter();
+    const [selectedMake, setSelectedMake] = useState('');
+    const [selectedYear, setSelectedYear] = useState('');
+    const [selectedDistance, setSelectedDistance] = useState('');
+    const [selectedCounty, setSelectedCounty] = useState('');
 
-    //  const handleCarClick = (car) => {
-    //   router.push(`/car/${car.id}`); // Assuming you have car details pages
-    //  };
+    const handleFilterSubmit = () => {
+        // Handle filter submission here
+        // You can use selectedMake, selectedYear, selectedDistance, selectedCounty to filter the vehicles
+    };
 
     return (
         <div className="container mx-auto px-4 py-8 bg-gray-100">
             <header className="text-3xl font-bold mb-8">
                 Shop for Car
-                <div className="underline" />
             </header>
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 car-list-section">
                 <div className="border rounded-lg p-4">
                     <label className="block mb-2">Make:</label>
-                    <select className="border rounded px-2 py-1 w-full">
+                    <select value={selectedMake} onChange={(e) => setSelectedMake(e.target.value)} className="border rounded px-2 py-1 w-full">
                         <option value="">All Makes</option>
-                        {/* Map through available makes */}
                         {vehicles.map((car) => (
                             <option key={car.make} value={car.make}>
                                 {car.make}
@@ -41,7 +43,7 @@ const ShopForCar = () => {
 
                 <div className="border rounded-lg p-4">
                     <label className="block mb-2">Year:</label>
-                    <select className="border rounded px-2 py-1 w-full">
+                    <select value={selectedYear} onChange={(e) => setSelectedYear(e.target.value)} className="border rounded px-2 py-1 w-full">
                         <option value="">All Years</option>
                         {/* Add available years */}
                     </select>
@@ -49,7 +51,7 @@ const ShopForCar = () => {
 
                 <div className="border rounded-lg p-4">
                     <label className="block mb-2">Distance:</label>
-                    <select className="border rounded px-2 py-1 w-full">
+                    <select value={selectedDistance} onChange={(e) => setSelectedDistance(e.target.value)} className="border rounded px-2 py-1 w-full">
                         <option value="">All Distances</option>
                         {/* Add available distances */}
                     </select>
@@ -57,11 +59,17 @@ const ShopForCar = () => {
 
                 <div className="border rounded-lg p-4">
                     <label className="block mb-2">County:</label>
-                    <select className="border rounded px-2 py-1 w-full">
+                    <select value={selectedCounty} onChange={(e) => setSelectedCounty(e.target.value)} className="border rounded px-2 py-1 w-full">
                         <option value="">All Counties</option>
                         {/* Add available counties */}
                     </select>
                 </div>
+            </div>
+
+            <div className="flex justify-left mt-4 rounded">
+                <button className="bg-blue-500 text-white py-3 px-6 rounded-md" onClick={handleFilterSubmit}>
+                    Apply Filters
+                </button>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 car-list-section">

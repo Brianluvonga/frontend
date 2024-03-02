@@ -48,8 +48,8 @@ const AboutSection = () => {
                         </div>
                         <div className="lg:w-1/2 lg:pl-8 mt-8 lg:mt-8">
                             <img
-                                className="w-full h-auto rounded-lg shadow-lg"
-                                src="/shop5.jpg"
+                                className="w-full h-auto"
+                                src="/shop4.png"
                                 alt="About ClassicsKE" />
                         </div>
                     </div>

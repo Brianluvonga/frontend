@@ -1,46 +1,43 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 
-
-
-const fetchUserDetails = async (userId) => {
-    try {
-        const response = await axios.get(`http://127.0.0.1:8000/user/${userId}/`);
-        const user = response.data;
-        console.log("Fetched user details:", user);
-        return user;
-    } catch (error) {
-        console.error('Error fetching user data:', error);
-        return null;
-    }
-};
-
-
-
 const UserProfile = ({ userId }) => {
-    const [userData, setUserData] = useState(null);
+    const [data, setUserData] = useState({});
 
     useEffect(() => {
-        const fetchUserData = async () => {
-            const user = await fetchUserDetails(userId);
-            if (user) {
-                setUserData(user);
+        const fetchUserDetails = async () => {
+            try {
+                if (userId) {
+                    const response = await axios.get(`http://127.0.0.1:8000/user/${userId}/`);
+                    const user = response.data;
+                    console.log("Response from API:", response); // Log the response
+                    console.log("Fetched user details:", user);
+                    setUserData(user);
+                }
+            }
+            catch (error) {
+                console.error('Error fetching user data:', error);
             }
         };
 
-        fetchUserData();
+        fetchUserDetails();
+        console.log("data:", data); // Log userData for debugging
+
+
     }, [userId]);
 
-    if (!userData) {
+
+    // Check if userData exists before rendering
+    if (Object.keys(data).length === 0) {
         return <div>Loading user data...</div>;
     }
 
     return (
         <div>
             <h2>User Profile</h2>
-            {userData.email && <p>Email: {userData.email}</p>}
-            {userData.firstName && <p>First Name: {userData.firstName}</p>}
-            {userData.lastName && <p>Last Name: {userData.lastName}</p>}
+            <p>Email: {data.email}</p>
+            <p>First Name: {data.firstName}</p>
+            <p>Last Name: {data.lastName}</p>
             {/* Display other user details here */}
         </div>
     );

@@ -72,7 +72,7 @@ const Navbar = () => {
                     </Link>
                     <Link href="/built/already_built"
                         className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-black font-bold items-center justify-center font-serif hover:text-gray-400">
-                        Already Build
+                        Already Built
 
                     </Link><a href="/shop/cart/buy" onClick={() => handleMenuItemClick('/shop/shop')}
                         className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-black font-bold items-center justify-center font-serif hover:text-gray-400">
