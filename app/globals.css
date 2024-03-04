@@ -63,6 +63,25 @@ body {
 }
 
 
+/* menu */
+.menu-container {
+  position: relative;
+}
+
+.menu-toggle {
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.menu-items {
+  min-height: 100vh;
+  /* Adjust height as needed */
+}
+
+
 
 
 /* subscribe section */

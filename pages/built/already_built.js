@@ -72,30 +72,6 @@ const AlreadyBuilt = () => {
                 </div>
             </div>
 
-            <section className="bg-white py-16 font-serif">
-                <div className="container mx-auto px-4">
-                    <div className="flex flex-col lg:flex-row-reverse">
-                        <div className="lg:w-1/2 mt-8 lg:mt-0">
-                            <div className="flex flex-col items-center">
-                                <Image
-                                    src="/shop2.png"
-                                    alt="Placeholder Image" // Update with your actual image alt text
-                                    width={500} // Adjust as needed
-                                    height={300} // Adjust as needed
-                                    layout="responsive"
-                                    className="w-full h-auto rounded-lg shadow-lg"
-                                />
-                            </div>
-                        </div>
-                        <div className="lg:w-1/2 lg:pl-8">
-                            <h2 className="text-3xl font-bold mb-6">Already Built Project Cars</h2>
-                            <p className="text-lg text-gray-600 leading-relaxed mb-6">
-                                I'm looking for an Already Built Classic
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </section>
 
             <div className="container mx-auto px-4 py-8">
                 <header className="text-left text-3xl font-bold mb-8">

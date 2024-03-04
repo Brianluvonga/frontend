@@ -1,0 +1,15 @@
+.sidebar {
+    overflow-y: auto;
+    /* Allow vertical scrolling if needed */
+}
+
+.sidebar-item {
+    padding: 10px;
+    border-bottom: 1px solid #4b5563;
+    /* Add border to the bottom of each item */
+}
+
+.sidebar-item:last-child {
+    border-bottom: none;
+    /* Remove border from the last item */
+}

@@ -4,7 +4,7 @@
 import Navbar from 'pages/nav/Navbar';
 import Footer from 'pages/footer/Footer';
 import Rebuilds from 'pages/shop/rebuilds';
-import Msg from 'pages/account/register';
+import Msg from 'pages/message/sellercontact';
 import Search from 'pages/search/search';
 import Buy from 'pages/shop/shop';
 
@@ -28,7 +28,7 @@ export default function Home() {
 
       {/* partners */}
       <Search />
-      {/* <Msg /> */}
+      <Msg />
 
       {/* Rebuilds */}
       <Rebuilds />

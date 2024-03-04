@@ -81,7 +81,7 @@ const LoginScreen = () => {
                 if (user) {
                     setUserDetails(user);
                     setLoginSuccess(true);
-                    router.push('user/profile');
+                    router.push('dashboard/dashboard');
                 } else {
                     setLoginError('Error retrieving user details.');
                 }
