@@ -87,7 +87,7 @@ const Upload = () => {
             </div>
 
             <div className="container mx-auto p-4 ">
-                <h1 className="text-2xl font-bold mb-8 font-serif">Upload Car Part</h1>
+                <h1 className="text-2xl font-bold mb-8 font-serif">Already Built Car</h1>
                 <form onSubmit={handleSubmit} className="max-w-xl mx-auto">
                     <div className="mb-4">
                         <label htmlFor="part_name" className="block text-gray-700 text-sm font-bold mb-2">

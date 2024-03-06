@@ -43,42 +43,97 @@ body {
   letter-spacing: 1px;
 }
 
-*/ .menu-link:hover {
-  background-color: #e5e7eb;
-}
-
-*/ .navbar-container {
-  position: fixed;
-  width: 100%;
-  top: 0;
-  left: 0;
-  z-index: 10;
-  transition: all 0.3s ease;
-  /* Add smooth transition */
-}
-
-/* Center align menu items */
-.navbar-container .lg-inline-flex {
-  justify-content: center;
-}
-
-
-/* menu */
-.menu-container {
-  position: relative;
-}
-
-.menu-toggle {
-  padding: 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-}
 
 .menu-items {
   min-height: 100vh;
   /* Adjust height as needed */
+}
+
+/* Navbar Container */
+.navbar-container {
+  background-color: #ffffff;
+  /* White background */
+  padding: 1rem;
+  /* Padding around the navbar */
+  position: sticky;
+  top: 0;
+  /* Stick to the top of the viewport */
+  z-index: 10;
+  /* Ensure the navbar appears above other elements */
+  transition: background-color 0.3s ease;
+  /* Smooth transition effect for background color */
+}
+
+/* Logo */
+.navbar-container .logo {
+  color: #000000;
+  /* Black color for the logo text */
+  font-size: 1.5rem;
+  /* Adjust the font size as needed */
+  font-weight: bold;
+  /* Bold font weight */
+  text-decoration: none;
+  /* Remove underline */
+}
+
+/* Mobile Menu Icon */
+.navbar-container .menu-icon {
+  cursor: pointer;
+  /* Show pointer cursor on hover */
+}
+
+/* Navbar Links */
+.navbar-container .navbar-links {
+  display: flex;
+  /* Display links in a row */
+  align-items: center;
+  /* Center vertically */
+}
+
+.navbar-container .navbar-links a {
+  color: #000000;
+  /* Black color for links */
+  font-weight: bold;
+  /* Bold font weight */
+  text-decoration: none;
+  /* Remove underline */
+  margin-right: 1rem;
+  /* Add spacing between links */
+  transition: color 0.3s ease;
+  /* Smooth transition effect for color */
+}
+
+.navbar-container .navbar-links a:hover {
+  color: #666666;
+  /* Darker color on hover */
+}
+
+/* Mobile Menu */
+.navbar-container .mobile-menu {
+  display: none;
+  /* Hide by default */
+}
+
+.navbar-container .mobile-menu.active {
+  display: block;
+  /* Show when active */
+}
+
+/* Mobile Menu Links */
+.navbar-container .mobile-menu-links {
+  flex-direction: column;
+  /* Display links in a column */
+}
+
+.navbar-container .mobile-menu-links a {
+  padding: 0.5rem 0;
+  /* Add padding to links */
+}
+
+/* Navbar Transition Effect */
+.navbar-transition {
+  transition: background-color 0.3s ease;
+  /* Smooth transition effect for background color */
 }
 
 

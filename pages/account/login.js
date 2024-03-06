@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import 'tailwindcss/tailwind.css';
 import Link from 'next/link';
 import axios from 'axios';
@@ -18,7 +18,7 @@ const LoginScreen = () => {
     const [loginError, setLoginError] = useState('');
     const [isLoggingIn, setIsLoggingIn] = useState(false);
     const [loginSuccess, setLoginSuccess] = useState(false);
-    const [userDetails, setUserDetails] = useState(null);
+    const [userDetails, setUserDetails] = useState();
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -67,11 +67,11 @@ const LoginScreen = () => {
             if (response.status === 200) {
                 const userData = response.data; // Assuming the response contains user data
 
-                // Log the entire userData object
-                console.log("User data:", userData);
-
                 setUserDetails(userData); // Assuming user data is directly available
                 setLoginSuccess(true);
+               ;
+                // Log the entire userData object
+                console.log("User data:", userData);
 
                 // Log the user's ID
                 console.log("User ID:", userData.id);
@@ -81,7 +81,7 @@ const LoginScreen = () => {
                 if (user) {
                     setUserDetails(user);
                     setLoginSuccess(true);
-                    router.push('dashboard/dashboard');
+                    router.push('user/profile');
                 } else {
                     setLoginError('Error retrieving user details.');
                 }
@@ -96,6 +96,7 @@ const LoginScreen = () => {
             setIsLoggingIn(false);
         }
     };
+
 
     return (
         <>
@@ -187,6 +188,8 @@ const LoginScreen = () => {
             </div>
 
             {loginSuccess && userDetails && <Profile userId={userDetails.id} />}
+           
+
             <Footer />
         </>
     );

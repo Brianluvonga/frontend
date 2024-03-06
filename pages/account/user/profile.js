@@ -1,46 +1,57 @@
-import React, { useState, useEffect } from "react";
+
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const UserProfile = ({ userId }) => {
-    const [data, setUserData] = useState({});
+const Profile = ({ userId }) => {
+    const [userData, setUserData] = useState({});
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchUserDetails = async () => {
-            try {
-                if (userId) {
+        const fetchUserData = async () => {
+            if (userId) {
+                try {
                     const response = await axios.get(`http://127.0.0.1:8000/user/${userId}/`);
-                    const user = response.data;
-                    console.log("Response from API:", response); // Log the response
-                    console.log("Fetched user details:", user);
-                    setUserData(user);
+                    const data = response.data;
+                    console.log('response info data', data);
+                    setUserData(data);
+                    setIsLoading(false);
+                    console.log('isLoading state after update:', isLoading);
+                    console.log('current Id:', userId);
+
+                } catch (error) {
+                    console.error('Error fetching user data:', error);
+                    setError('Error fetching user data. Please try again later.');
+                    setIsLoading(false);
                 }
+
             }
-            catch (error) {
-                console.error('Error fetching user data:', error);
-            }
+
         };
 
-        fetchUserDetails();
-        console.log("data:", data); // Log userData for debugging
+        fetchUserData(); // Call the function inside useEffect
 
 
-    }, [userId]);
 
+    }, ); // Include userId in the dependency array
 
-    // Check if userData exists before rendering
-    if (Object.keys(data).length === 0) {
+    if (isLoading === false) {
         return <div>Loading user data...</div>;
+    }
+
+    if (error) {
+        return <div>{error}</div>;
     }
 
     return (
         <div>
             <h2>User Profile</h2>
-            <p>Email: {data.email}</p>
-            <p>First Name: {data.firstName}</p>
-            <p>Last Name: {data.lastName}</p>
+            <p>Email: {userData.email ? userData.email : 'Loading email...'}</p>
+            <p>First Name: {userData.firstName}</p>
+            <p>Last Name: {userData.lastName}</p>
             {/* Display other user details here */}
         </div>
     );
 };
 
-export default UserProfile;
+export default Profile;

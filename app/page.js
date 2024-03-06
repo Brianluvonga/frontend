@@ -27,20 +27,20 @@ export default function Home() {
       <Navbar />
 
       {/* partners */}
-      <Search />
+      {/* <Search /> */}
       <Msg />
 
       {/* Rebuilds */}
-      <Rebuilds />
+      {/* <Rebuilds />
 
       {/* Parts Section */}
-      <Buy />
+      {/* <Buy /> */}
 
       {/* Contact Section */}
-      <ContactSection />
+      {/* <ContactSection /> */}
 
       {/* Subscribe Section */}
-      <Subscribe />
+      {/* <Subscribe />  */}
 
       {/* footer section */}
       <Footer />

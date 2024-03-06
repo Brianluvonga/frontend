@@ -74,9 +74,9 @@ const Navbar = () => {
                         className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-black font-bold items-center justify-center font-serif hover:text-gray-400">
                         Already Built
 
-                    </Link><a href="/shop/cart/buy" onClick={() => handleMenuItemClick('/shop/shop')}
+                    </Link><a href="/shop/parts/parts" onClick={() => handleMenuItemClick('/shop/shop')}
                         className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-black font-bold items-center justify-center font-serif hover:text-gray-400">
-                        Parts
+                        Sell
 
                     </a>
                     <Link href="/contacts/contact"
@@ -84,6 +84,7 @@ const Navbar = () => {
                         Contact
 
                     </Link>
+                    
                 </div>
                 <div>
                     <Link href='/account/login' className="inline-flex items-center p-2 ml-auto text-white font-bold bg-black hover:bg-gray-500 focus:ring-4 font-serif focus:outline-none focus:ring-blue-300 rounded-full text-sm px-4 py-2 text-center md:mr-3 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">

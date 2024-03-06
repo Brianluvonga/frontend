@@ -11,7 +11,7 @@ import Footer from '@/pages/footer/Footer';
 const UploadButton = () => {
     return (
         <Link href="./upload_part"
-            className="bg-black text-white px-4 py-2 rounded-lg shadow hover:bg-gray-500">Upload Part
+            className="bg-black text-white px-4 py-2 rounded-lg shadow hover:bg-gray-500">Fully Restored
         </Link>
     );
 };
@@ -31,32 +31,53 @@ const handleAddToCartClick = () => {
     });
 };
 
-const CarParts = ({ part_name, manufacturer, location, model, description, image, price, quantity, seller }) => (
+const CarParts = ({ part_name, manufacturer, location, model, description, image, price, quantity, seller }) => {
+    const [showFullDescription, setShowFullDescription] = useState(false);
 
-    <div className="bg-white shadow rounded-lg p-4 font-serif">
-        <img className="h-48 w-full object-cover rounded-lg mb-4" src={image} alt={part_name} />
-        <h2 className="text-xl font-bold mb-2">{part_name}</h2>
-        <div className="flex items-center justify-between">
-            <div>
-                <p className="text-gray-500 text-sm">Manufacturer: {manufacturer}</p>
-                <p className="text-gray-500 text-sm">Location: {location}</p>
-                <p className="text-gray-500 text-sm">Model: {model}</p>
+    const toggleDescription = () => {
+        setShowFullDescription(!showFullDescription);
+    };
+
+    const formattedPrice = price.toLocaleString(); 
+
+    const displayedDescription =
+        description && description.length > 7
+            ? showFullDescription
+                ? description
+                : `${description.slice(0, 7)}...`
+            : description;
+
+    return (
+        <div className="bg-white shadow rounded-lg p-4 font-serif">
+            <img className="h-48 w-full object-cover rounded-lg mb-4" src={image} alt={part_name} />
+            <h2 className="text-xl font-bold mb-2">{part_name}</h2>
+            <div className="flex items-center justify-between">
+                <div>
+                    <p className="text-gray-500 text-sm">Manufacturer: {manufacturer}</p>
+                    <p className="text-gray-500 text-sm">Location: {location}</p>
+                    <p className="text-gray-500 text-sm">Model: {model}</p>
+                </div>
+                <div className="flex flex-col items-end">
+                    <p className="text-gray-500 text-sm">Seller: {seller}</p>
+                    <p className="text-gray-500 text-sm">Quantity: {quantity}</p>
+                </div>
             </div>
-            <div className="flex flex-col items-end">
-                <p className="text-gray-500 text-sm">Seller: {seller}</p>
-                <p className="text-gray-500 text-sm">Quantity: {quantity}</p>
+            {description && (description.length > 7 || showFullDescription) && (
+                <p className="text-gray-500 text-sm mt-2">
+                    {displayedDescription}{' '}
+                    {description.length > 7 && (
+                        <span className="text-blue-500 cursor-pointer" onClick={toggleDescription}>
+                            {showFullDescription ? 'Show less' : 'Show more'}
+                        </span>
+                    )}
+                </p>
+            )}
+            <div className="flex justify-between items-end mt-4">
+                <p className="text-lg font-bold">Kshs.{formattedPrice}</p>
             </div>
         </div>
-        <p className="text-gray-500 text-sm mt-2">{description}</p>
-        <div className="flex justify-between items-end mt-4">
-            <p className="text-lg font-bold">Kshs.{price}</p>
-          
-        </div>
-    </div>
-);
-
-
-
+    );
+};
 
 
 const CarPartsList = () => {
@@ -66,6 +87,7 @@ const CarPartsList = () => {
 
     const [carParts, setCarParts] = useState([]);
     const [selectedPart, setSelectedPart] = useState(null); // State to manage selected car part
+    const [activeForm, setActiveForm] = useState(null);
 
 
     // Function to open the modal and set the selected car part
@@ -98,6 +120,10 @@ const CarPartsList = () => {
     };
     console.log('carParts:', carParts);  // Add this line to check the value of carParts
 
+    const handleToggleForm = (formName) => {
+        setActiveForm(formName === activeForm ? null : formName);
+    };
+
 
     return (
         <>
@@ -114,10 +140,22 @@ const CarPartsList = () => {
             </div>
 
 
-            {/* Add the UploadButton component */}
-            <div className="container mx-auto p-4 flex justify-end">
+            <div className="container mx-auto p-4 flex justify-end gap-2">
+                {/* Upload Part button */}
+
                 <UploadButton />
+
+                <button
+                    className="bg-black text-white px-4 py-2 rounded-lg shadow hover:bg-gray-500"
+                    onClick={() => handleToggleForm('add')}
+                >
+                    Shell
+                </button>
             </div>
+
+            {/* Render the forms conditionally */}
+
+            {activeForm === 'add' && <AddPartForm />}
 
             {/* Your existing code */}
             <div className="container mx-auto p-4">

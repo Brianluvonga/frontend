@@ -194,7 +194,7 @@ const Shop = () => {
             <div className="container mx-auto p-4">
                 {/* <h1 className="text-2xl font-bold mb-8 font-serif">Shop</h1> */}
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
                     {cars.map((car) => (
                         <div key={car.id} className="relative">
                             <CarCard car={car} onCarClick={handleCarClick} />

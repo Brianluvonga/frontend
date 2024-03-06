@@ -19,6 +19,11 @@ const AddToCartSection = ({ products }) => {
         }
     };
 
+    const removeFromCart = (id) => {
+        const updatedCart = cart.filter((item) => item.id !== id);
+        setCart(updatedCart);
+    };
+
     return (
         <div className="flex">
             <div className="flex-1">
@@ -35,7 +40,7 @@ const AddToCartSection = ({ products }) => {
                 >
                     View Cart
                 </button>
-                {isCartOpen && <CartPreview cartItems={cart} />}
+                {isCartOpen && <CartPreview cartItems={cart} removeFromCart={removeFromCart} />}
             </div>
         </div>
     );

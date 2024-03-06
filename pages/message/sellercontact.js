@@ -10,6 +10,14 @@ const CarListing = () => {
         message: '',
     });
 
+    // Dummy seller info
+    const sellerInformation = {
+        location: '123 Main Street',
+        county: 'Anytown',
+        street: 'Any County',
+        phone: '(123) 456-7890',
+    };
+
     const [mainImageIndex, setMainImageIndex] = useState(0);
 
     const handleChange = (event) => {
@@ -26,6 +34,13 @@ const CarListing = () => {
     };
 
     const carImages = ['/shop2.png', '/shop2.png', '/shop2.png'];
+    // Vehicle features data
+    const vehicleFeatures = [
+        { name: 'Basics', description: 'Description of Basics' },
+        { name: 'Features', description: 'Description of features' },
+        { name: 'Key Specs', description: 'Description of Key Specs' },
+        // Add more features as needed
+    ];
 
     return (
         <>
@@ -63,7 +78,7 @@ const CarListing = () => {
                 </div>
                 <div className="w-full lg:w-1/2 px-4 py-4">
                     <h2 className="text-2xl font-bold mb-4">Contact Seller</h2>
-                  
+
                     <form onSubmit={handleSubmit}>
                         <div className="mb-4">
                             <label htmlFor="name" className="block text-gray-700 mb-2">
@@ -126,13 +141,42 @@ const CarListing = () => {
                         </div>
                         <button
                             type="submit"
-                            className="px-4 py-2 bg-blue-500 text-white font-bold rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                            className="w-full px-4 py-2 bg-blue-500 text-white font-bold rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                         >
-                            Send Message
+                            Check Availability
                         </button>
+
                     </form>
                 </div>
             </div>
+
+            {/* Vehicle Features */}
+            <div className="container mx-auto px-4 py-8">
+                <h2 className="text-2xl font-bold mb-4">Vehicle Features</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {vehicleFeatures.map((feature, index) => (
+                        <div key={index} className="border p-4 rounded-md">
+                            <h3 className="text-lg font-semibold mb-2">{feature.name}</h3>
+                            <p>{feature.description}</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            {/* Seller Info */}
+            <div className="container mx-auto px-4 py-8">
+                <h2 className="text-2xl font-bold mb-4">Seller Info</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+                    <div className="border flex flex-col p-4 rounded-lg">
+                        <p><strong>Location:</strong> {sellerInformation.location}</p>
+                        <p><strong>County:</strong> {sellerInformation.county}</p>
+                        <p><strong>Street:</strong> {sellerInformation.street}</p>
+                        <p><strong>Phone:</strong> {sellerInformation.phone}</p>
+                    </div>
+                </div>
+            </div>
+
             <style jsx>{`
                 .carousel-image {
                     flex: 0 0 auto;
