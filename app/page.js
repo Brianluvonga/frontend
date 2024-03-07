@@ -27,8 +27,8 @@ export default function Home() {
       <Navbar />
 
       {/* partners */}
-      {/* <Search /> */}
-      <Msg />
+      <Search />
+      {/* <Msg /> */}
 
       {/* Rebuilds */}
       {/* <Rebuilds />
@@ -40,7 +40,7 @@ export default function Home() {
       {/* <ContactSection /> */}
 
       {/* Subscribe Section */}
-      {/* <Subscribe />  */}
+      <Subscribe /> 
 
       {/* footer section */}
       <Footer />

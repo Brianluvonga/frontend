@@ -95,7 +95,7 @@ const Navbar = () => {
 
         </nav>
 
-        <div className="flex items-center justify-center min-h-screen font-serif">
+        <div className="flex items-center justify-center min font-serif">
             <div className="container mx-auto flex flex-col md:flex-row">
                 <div className="md:w-1/2">
              

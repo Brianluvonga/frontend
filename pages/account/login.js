@@ -73,8 +73,7 @@ const LoginScreen = () => {
                 // Log the entire userData object
                 console.log("User data:", userData);
 
-                // Log the user's ID
-                console.log("User ID:", userData.id);
+               
 
                 // Fetch user details after successful login
                 const user = await fetchUserDetails(userData.id);

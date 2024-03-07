@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const Profile = ({ userId }) => {
-    const [userData, setUserData] = useState({});
+    const [userData, setUserData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -29,13 +29,16 @@ const Profile = ({ userId }) => {
 
         };
 
-        fetchUserData(); // Call the function inside useEffect
+        // fetchUserData(); // Call the function inside useEffect
+        if (userId !== undefined && userId !== null) {
+            fetchUserData();
+        }
 
 
 
-    }, ); // Include userId in the dependency array
+    }, [userId]); // Include userId in the dependency array
 
-    if (isLoading === false) {
+    if (!isLoading) {
         return <div>Loading user data...</div>;
     }
 
@@ -46,7 +49,7 @@ const Profile = ({ userId }) => {
     return (
         <div>
             <h2>User Profile</h2>
-            <p>Email: {userData.email ? userData.email : 'Loading email...'}</p>
+            <p>Email: {userData.email}</p>
             <p>First Name: {userData.firstName}</p>
             <p>Last Name: {userData.lastName}</p>
             {/* Display other user details here */}
