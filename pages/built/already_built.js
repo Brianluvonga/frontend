@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import Footer from '../footer/Footer';
+import { stringify } from 'postcss';
 
 const carData = [
     // Replace with your actual car data objects, including image paths, names, filters, and prices
@@ -55,8 +56,12 @@ const AlreadyBuilt = () => {
     const router = useRouter();
 
     const handleCarClick = (car) => {
-        router.push(`/car/${car.id}`);
+        router.push({
+            pathname: `car/`,
+            query: { car: JSON.stringify(car) }// Pass the entire car object as a query parameter
+        });
     };
+
 
     return (
         <>
@@ -88,7 +93,7 @@ const AlreadyBuilt = () => {
                     </select>
                 </div>
 
-                <main className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <main className="grid grid-cols-1 md:grid-cols-5 gap-4">
                     {filteredCars.map((car) => (
                         <div
                             key={car.id}
@@ -131,7 +136,7 @@ const AlreadyBuilt = () => {
 
 
 
-                <main className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <main className="grid grid-cols-1 md:grid-cols-5 gap-4">
                     {filteredTopRecommendations.map((car) => (
                         <div
                             key={car.id}

@@ -188,7 +188,6 @@ const LoginScreen = () => {
 
             {loginSuccess && userDetails && <Profile userId={userDetails.id} />}
            
-
             <Footer />
         </>
     );
