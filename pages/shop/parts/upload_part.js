@@ -10,7 +10,15 @@ const Upload = () => {
         model: '',
         description: '',
         image: null,
-        imagePreview: null, // Added state for image preview
+        imagePreview: null,
+        rightside_image: null,
+        rightside_imagePreview: null,
+        leftside_image: null,
+        leftside_imagePreview: null,
+        inside_image: null,
+        inside_imagePreview: null,
+        back_image: null,
+        back_imagePreview: null, // Added state for image preview
         price: '',
         quantity: '',
     });
@@ -24,11 +32,12 @@ const Upload = () => {
     };
 
     const handleImageChange = (event) => {
-        const selectedImage = event.target.files[0];
+        const { name, files } = event.target;
+        const selectedImage = files[0];
         setFormData({
             ...formData,
-            image: selectedImage,
-            imagePreview: URL.createObjectURL(selectedImage), // Create a preview URL for the selected image
+            [name]: selectedImage,
+            [`${name}Preview`]: URL.createObjectURL(selectedImage),
         });
     };
 
@@ -59,6 +68,15 @@ const Upload = () => {
                     model: '',
                     description: '',
                     image: null, // Reset the image field to null or any default value you prefer
+                    imagePreview: null,
+                    rightside_image: null,
+                    rightside_imagePreview: null,
+                    leftside_image: null,
+                    leftside_imagePreview: null,
+                    inside_image: null,
+                    inside_imagePreview: null,
+                    back_image: null,
+                    back_imagePreview: null,
                     price: '',
                     quantity: '',
                 });
@@ -164,7 +182,7 @@ const Upload = () => {
                     </div>
                     <div className="mb-4">
                         <label htmlFor="image" className="block text-gray-700 text-sm font-bold mb-2">
-                            Image
+                            Main Image
                         </label>
                         <input
                             type="file"
@@ -179,6 +197,75 @@ const Upload = () => {
                             <img src={formData.imagePreview} alt="Image Preview" className="mt-2 max-w-xs" />
                         )}
                     </div>
+                    <div className="mb-4">
+                        <label htmlFor="rightside_image" className="block text-gray-700 text-sm font-bold mb-2">
+                            Right Side Image
+                        </label>
+                        <input
+                            type="file"
+                            id="rightside_image"
+                            name="rightside_image"
+                            onChange={handleImageChange}
+                            className="w-full"
+                            accept="image/*"
+                            required
+                        />
+                        {formData.rightside_imagePreview && (
+                            <img src={formData.rightside_imagePreview} alt="Right Side Image Preview" className="mt-2 max-w-xs" />
+                        )}
+                    </div>
+                    <div className="mb-4">
+                        <label htmlFor="leftside_image" className="block text-gray-700 text-sm font-bold mb-2">
+                            Left Side Image
+                        </label>
+                        <input
+                            type="file"
+                            id="leftside_image"
+                            name="leftside_image"
+                            onChange={handleImageChange}
+                            className="w-full"
+                            accept="image/*"
+                            required
+                        />
+                        {formData.leftside_imagePreview && (
+                            <img src={formData.leftside_imagePreview} alt="Left Side Image Preview" className="mt-2 max-w-xs" />
+                        )}
+                    </div>
+                    <div className="mb-4">
+                        <label htmlFor="inside_image" className="block text-gray-700 text-sm font-bold mb-2">
+                            Inside Image
+                        </label>
+                        <input
+                            type="file"
+                            id="inside_image"
+                            name="inside_image"
+                            onChange={handleImageChange}
+                            className="w-full"
+                            accept="image/*"
+                            required
+                        />
+                        {formData.inside_imagePreview && (
+                            <img src={formData.inside_imagePreview} alt="Inside Image Preview" className="mt-2 max-w-xs" />
+                        )}
+                    </div>
+                    <div className="mb-4">
+                        <label htmlFor="back_image" className="block text-gray-700 text-sm font-bold mb-2">
+                            Back Image
+                        </label>
+                        <input
+                            type="file"
+                            id="back_image"
+                            name="back_image"
+                            onChange={handleImageChange}
+                            className="w-full"
+                            accept="image/*"
+                            required
+                        />
+                        {formData.back_imagePreview && (
+                            <img src={formData.back_imagePreview} alt="Back Image Preview" className="mt-2 max-w-xs" />
+                        )}
+                    </div>
+
                     <div className="mb-4 flex">
                         <div className="w-1/2 pr-2">
                             <label htmlFor="price" className="block text-gray-700 text-sm font-bold mb-2">

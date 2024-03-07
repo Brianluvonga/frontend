@@ -38,7 +38,7 @@ const CarParts = ({ part_name, manufacturer, location, model, description, image
         setShowFullDescription(!showFullDescription);
     };
 
-    const formattedPrice = price.toLocaleString(); 
+    const formattedPrice = price.toLocaleString();
 
     const displayedDescription =
         description && description.length > 7
@@ -58,8 +58,8 @@ const CarParts = ({ part_name, manufacturer, location, model, description, image
                     <p className="text-gray-500 text-sm">Model: {model}</p>
                 </div>
                 <div className="flex flex-col items-end">
-                    <p className="text-gray-500 text-sm">Seller: {seller}</p>
-                    <p className="text-gray-500 text-sm">Quantity: {quantity}</p>
+                    {/* <p className="text-gray-500 text-sm">Seller: {seller}</p> */}
+                    {/* <p className="text-gray-500 text-sm">Quantity: {quantity}</p> */}
                 </div>
             </div>
             {description && (description.length > 7 || showFullDescription) && (
@@ -160,7 +160,7 @@ const CarPartsList = () => {
             {/* Your existing code */}
             <div className="container mx-auto p-4">
                 <h1 className="text-2xl font-bold mb-8 font-serif">Car Parts</h1>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4">
                     {carParts.map((part) => (
                         <div
                             key={part.id}
@@ -174,6 +174,8 @@ const CarPartsList = () => {
                                 part_name={part.partName}
                                 seller={part.seller}
                                 image={part.image}
+                                side_image={part.leftside_image}
+
                                 location={part.location}
                                 model={part.model}
                                 description={part.description}
@@ -189,7 +191,9 @@ const CarPartsList = () => {
             {isModalOpen && selectedPart && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
                     <div className="bg-white p-4 rounded-lg shadow-lg w-full h-full overflow-auto">
-                        <DetailedCarPart carPart={selectedPart} />
+                        <DetailedCarPart carPart={selectedPart}
+                           
+                        />
                         <button className="mt-4 bg-blue-500 text-white px-4 py-2 rounded" onClick={handleCloseModal}>
                             Close
                         </button>
