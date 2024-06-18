@@ -70,7 +70,7 @@ const CarRebuilds = () => {
             description: 'Compact car with excellent fuel efficiency.',
             price: '$10,000',
             location: 'Los Angeles, CA',
-            seller: 'Don Luvo',
+            seller: 'Don Luvonga',
             images: ['/back1.png'],
         },
         {

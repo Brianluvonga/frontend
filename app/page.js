@@ -31,7 +31,7 @@ export default function Home() {
       {/* <Msg /> */}
 
       {/* Rebuilds */}
-      {/* <Rebuilds />
+      <Rebuilds />
 
       {/* Parts Section */}
       {/* <Buy /> */}
