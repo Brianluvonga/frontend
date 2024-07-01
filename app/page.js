@@ -4,7 +4,9 @@
 import Navbar from 'pages/nav/Navbar';
 import Footer from 'pages/footer/Footer';
 import Rebuilds from 'pages/shop/rebuilds';
-import Msg from 'pages/message/sellercontact';
+import Dashboard from 'pages/dashboard/dashboard';
+
+
 import Search from 'pages/search/search';
 import Buy from 'pages/shop/shop';
 
@@ -24,14 +26,16 @@ export default function Home() {
     <div>
 
       {/* menu item */}
-      <Navbar />
+      {/* <Navbar /> */}
 
       {/* partners */}
-      <Search />
-      {/* <Msg /> */}
+      {/* <Search /> */}
+     
+
+       <Dashboard /> 
 
       {/* Rebuilds */}
-      <Rebuilds />
+      {/* <Rebuilds /> */}
 
       {/* Parts Section */}
       {/* <Buy /> */}
@@ -40,10 +44,10 @@ export default function Home() {
       {/* <ContactSection /> */}
 
       {/* Subscribe Section */}
-      <Subscribe /> 
+      {/* <Subscribe />  */}
 
       {/* footer section */}
-      <Footer />
+      {/* <Footer /> */}
 
     </div>
   )
