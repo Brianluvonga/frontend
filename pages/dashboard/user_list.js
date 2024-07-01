@@ -42,20 +42,24 @@ const UserListTable = () => {
                     <thead>
                         <tr>
                             {/* <th className="py-2 px-4 border-b text-left">ID</th> */}
-                            <th className="py-2 px-4 border-b text-left">First Name</th>
-                            <th className="py-2 px-4 border-b text-left">Last Name</th>
-                            <th className="py-2 px-4 border-b text-left">Email</th>
-                            <th className="py-2 px-4 border-b text-left">Telephone</th>
+                            <th className="py-2 px-4 border-b text-left text-sm">First Name</th>
+                            <th className="py-2 px-4 border-b text-left text-sm">Last Name</th>
+                            <th className="py-2 px-4 border-b text-left text-sm">Email</th>
+                            <th className="py-2 px-4 border-b text-left text-sm">Telephone</th>
+                            <th className="py-2 px-4 border-b text-left text-sm">Role</th>
+
                         </tr>
                     </thead>
                     <tbody>
                         {users.map(user => (
                             <tr key={user.id}>
                                 {/* <td className="py-2 px-4 border-b">{user.id}</td> */}
-                                <td className="py-2 px-4 border-b">{user.firstName}</td>
-                                <td className="py-2 px-4 border-b">{user.lastName}</td>
-                                <td className="py-2 px-4 border-b">{user.email}</td>
-                                <td className="py-2 px-4 border-b">{user.telephone}</td>
+                                <td className="py-2 px-4 border-b text-sm">{user.firstName}</td>
+                                <td className="py-2 px-4 border-b text-sm">{user.lastName}</td>
+                                <td className="py-2 px-4 border-b text-sm">{user.email}</td>
+                                <td className="py-2 px-4 border-b text-sm">{user.telephone}</td>
+                                <td className="py-2 px-4 border-b text-sm">{user.role}</td>
+
                             </tr>
                         ))}
                     </tbody>
