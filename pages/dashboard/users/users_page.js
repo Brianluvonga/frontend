@@ -272,9 +272,9 @@ const UsersPage = () => {
                 ) : error ? (
                     <div className="text-center p-4 text-red-500">{error}</div>
                 ) : (
-                    <table className="w-full min-w-[640px]">
+                    <table className="w-full min-w-[640px] ">
                         <thead>
-                            <tr className="bg-gray-100">
+                            <tr className="bg-gray-100 ">
                                 <th className="p-2 text-left">Select</th>
                                 <th className="p-2 text-left">FirstName</th>
                                 <th className="p-2 text-left">LastName</th>

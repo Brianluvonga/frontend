@@ -5,6 +5,8 @@ import UserPage from './users/users_page';
 import Payments from './payments/payments_page';
 import Sold from './cars/sold/sold_cars';
 import Rebuilds from './cars/rebuild/car_rebuilds';
+import Restored from './cars/fully_restored/full_restored';
+
 
 
 
@@ -91,9 +93,9 @@ const Dashboard = () => {
                     </button>
                 </div>
                 <nav className="mt-8">
-                    <NavItem icon={<FiTool />} text="Build Car" isOpen={isMenuOpen} onClick={() => setCurrentView('rebuilds')}/>
+                    <NavItem icon={<FiTool />} text="Build Car" isOpen={isMenuOpen} onClick={() => setCurrentView('rebuilds')} />
                     {/* <Separator isOpen={isMenuOpen} /> */}
-                    <NavItem icon={<FiTruck />} text="Already Made" isOpen={isMenuOpen} />
+                    <NavItem icon={<FiTruck />} text="Restored" isOpen={isMenuOpen} onClick={() => setCurrentView('restored')} />
                     <NavItem icon={<FiCheckCircle />} text="Sold" isOpen={isMenuOpen} onClick={() => setCurrentView('sold')} />
                     <NavItem
                         icon={<FiDollarSign />} text="Payments" isOpen={isMenuOpen} onClick={() => setCurrentView('payments')} />
@@ -180,8 +182,11 @@ const Dashboard = () => {
                     ) : currentView === 'sold' ? (
                         <Sold />
                     ) : currentView === 'rebuilds' ? (
-                        <Rebuilds />) :
-                        null}
+                        <Rebuilds />)
+                        : currentView === 'restored' ? (
+                            <Restored />
+                        ) :
+                            null}
                 </main>
             </div>
         </div>
@@ -198,7 +203,7 @@ const NavItem = ({ icon, text, isOpen, onClick }) => (
 
 
 // const Separator = ({ isOpen }) => (
-//     <div className={`mx-4 border-t border-black ${isOpen ? 'block' : 'hidden'}`}></div>
+//     <div className={`border-t border-white ${isOpen ? 'block' : 'hidden'}`}></div>
 // );
 
 

@@ -92,7 +92,7 @@ const RebuildCarsPage = () => {
 
     return (
         <div className="container mx-auto px-4 py-8">
-            <h1 className="text-3xl font-bold mb-6">Car Parts Inventory</h1>
+            <h1 className="text-2xl font-bold mb-6">Car Parts</h1>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
                 <div className="bg-blue-100 p-4 rounded-lg">
@@ -130,28 +130,28 @@ const RebuildCarsPage = () => {
                 <div className="overflow-x-auto">
                     <table className="min-w-full bg-white">
                         <thead>
-                            <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                                <th className="py-3 px-6 text-left">Image</th>
-                                <th className="py-3 px-6 text-left">Part Name</th>
-                                <th className="py-3 px-6 text-left">Manufacturer</th>
-                                <th className="py-3 px-6 text-left">Model</th>
-                                <th className="py-3 px-6 text-left">Price</th>
-                                <th className="py-3 px-6 text-left">Quantity</th>
-                                <th className="py-3 px-6 text-left">Actions</th>
+                            <tr className="bg-gray-200 text-gray-600 text-sm leading-normal">
+                                <th className="py-3 px-2 text-left">Image</th>
+                                <th className="py-3 px-2 text-left">Part Name</th>
+                                <th className="py-3 px-2 text-left">Manufacturer</th>
+                                <th className="py-3 px-2 text-left">Model</th>
+                                <th className="py-3 px-2 text-left">Price</th>
+                                <th className="py-3 px-2 text-left">Quantity</th>
+                                <th className="py-3 px-2 text-left">Actions</th>
                             </tr>
                         </thead>
                         <tbody className="text-gray-600 text-sm font-light">
                             {filteredCarParts.map((part) => (
                                 <tr key={part.id} className="border-b border-gray-200 hover:bg-gray-100">
-                                    <td className="py-3 px-6 text-left">
+                                    <td className="py-3 px-2 text-left">
                                         <img src={part.image} alt={part.part_name} className="w-16 h-16 object-cover rounded" />
                                     </td>
-                                    <td className="py-3 px-6 text-left">{part.part_name}</td>
-                                    <td className="py-3 px-6 text-left">{part.manufacturer}</td>
-                                    <td className="py-3 px-6 text-left">{part.model}</td>
-                                    <td className="py-3 px-6 text-left">Kshs. {part.price}</td>
-                                    <td className="py-3 px-6 text-left">{part.quantity}</td>
-                                    <td className="py-3 px-6 text-left">
+                                    <td className="py-3 px-2 text-left">{part.part_name}</td>
+                                    <td className="py-3 px-2 text-left">{part.manufacturer}</td>
+                                    <td className="py-3 px-2 text-left">{part.model}</td>
+                                    <td className="py-3 px-2 text-left">Kshs. {part.price}</td>
+                                    <td className="py-3 px-2 text-left">{part.quantity}</td>
+                                    <td className="py-3 px-2 text-left">
                                         <div className="flex items-center space-x-4">
                                             <button onClick={() => handleView(part.id)} className="text-blue-600 hover:text-blue-900">
                                                 <FiEye />
