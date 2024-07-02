@@ -2,6 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { FiMenu, FiX, FiCalendar, FiDollarSign, FiTruck, FiTool, FiCheckCircle, FiUser, FiLogOut, FiSettings, FiUsers, FiHelpCircle, FiInfo } from 'react-icons/fi';
 import UserListTable from './user_list'
 import UserPage from './users/users_page';
+import Payments from './payments/payments_page';
+import Sold from './cars/sold/sold_cars';
+import Rebuilds from './cars/rebuild/car_rebuilds';
+
+
+
 
 import axios from 'axios';
 
@@ -85,16 +91,16 @@ const Dashboard = () => {
                     </button>
                 </div>
                 <nav className="mt-8">
-                    <NavItem icon={<FiTool />} text="Build Car" isOpen={isMenuOpen} />
+                    <NavItem icon={<FiTool />} text="Build Car" isOpen={isMenuOpen} onClick={() => setCurrentView('rebuilds')}/>
                     {/* <Separator isOpen={isMenuOpen} /> */}
                     <NavItem icon={<FiTruck />} text="Already Made" isOpen={isMenuOpen} />
-                    <NavItem icon={<FiCheckCircle />} text="Sold" isOpen={isMenuOpen} />
-                    <NavItem icon={<FiDollarSign />} text="Payments" isOpen={isMenuOpen} />
+                    <NavItem icon={<FiCheckCircle />} text="Sold" isOpen={isMenuOpen} onClick={() => setCurrentView('sold')} />
+                    <NavItem
+                        icon={<FiDollarSign />} text="Payments" isOpen={isMenuOpen} onClick={() => setCurrentView('payments')} />
                     <NavItem icon={<FiUsers />} text="Users" isOpen={isMenuOpen} onClick={() => setCurrentView('users')} />
 
                 </nav>
             </div>
-
 
             {/* Main Content */}
             <div className="flex-1 overflow-x-hidden overflow-y-auto">
@@ -169,7 +175,13 @@ const Dashboard = () => {
                         </div>
                     ) : currentView === 'users' ? (
                         <UserPage />
-                    ) : null}
+                    ) : currentView === 'payments' ? (
+                        <Payments />
+                    ) : currentView === 'sold' ? (
+                        <Sold />
+                    ) : currentView === 'rebuilds' ? (
+                        <Rebuilds />) :
+                        null}
                 </main>
             </div>
         </div>

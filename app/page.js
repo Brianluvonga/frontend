@@ -5,6 +5,8 @@ import Navbar from 'pages/nav/Navbar';
 import Footer from 'pages/footer/Footer';
 import Rebuilds from 'pages/shop/rebuilds';
 import Dashboard from 'pages/dashboard/dashboard';
+import Sold from 'pages/dashboard/cars/rebuild/car_rebuilds';
+
 
 
 import Search from 'pages/search/search';
@@ -29,8 +31,7 @@ export default function Home() {
       {/* <Navbar /> */}
 
       {/* partners */}
-      {/* <Search /> */}
-     
+      {/* <Sold /> */}
 
        <Dashboard /> 
 

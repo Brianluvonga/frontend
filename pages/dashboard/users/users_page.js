@@ -223,7 +223,7 @@ const UsersPage = () => {
                 )}
             </div>
 
-            <div className="mb-6 space-y-4 sm:space-y-0 sm:flex sm:justify-between sm:items-center">
+            <div className="mb-6 space-y-4 sm:space-y-0 sm:flex sm:justify-between sm:items-center">   
                 <div className="flex flex-wrap gap-2">
                     <button
                         onClick={() => setActiveFilter('all')}
