@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { FiSearch, FiEdit, FiTrash2, FiFlag, FiEye } from 'react-icons/fi';
 import axios from 'axios';
+import CarDetailsPopup from './car_detail';
+
 
 const RebuildCarsPage = () => {
     const [carParts, setCarParts] = useState([]);
@@ -13,6 +15,7 @@ const RebuildCarsPage = () => {
         lowStock: 0,
         flagged: 0
     });
+    const [selectedPart, setSelectedPart] = useState(null);
 
     useEffect(() => {
         fetchData();
@@ -46,7 +49,7 @@ const RebuildCarsPage = () => {
     const handleSearch = (e) => {
         const term = e.target.value.toLowerCase();
         setSearchTerm(term);
-        const filtered = carParts.filter(part => 
+        const filtered = carParts.filter(part =>
             part.part_name.toLowerCase().includes(term) ||
             part.manufacturer.toLowerCase().includes(term) ||
             part.model.toLowerCase().includes(term)
@@ -87,9 +90,13 @@ const RebuildCarsPage = () => {
     };
 
     const handleView = (id) => {
-        console.log(`View part with id: ${id}`);
+        const part = carParts.find(p => p.id === id);
+        setSelectedPart(part);
     };
 
+    const closePopup = () => {
+        setSelectedPart(null);
+    };
     return (
         <div className="container mx-auto px-4 py-8">
             <h1 className="text-2xl font-bold mb-6">Car Parts</h1>
@@ -173,8 +180,12 @@ const RebuildCarsPage = () => {
                     </table>
                 </div>
             )}
+            {selectedPart && (
+                <CarDetailsPopup part={selectedPart} onClose={closePopup} />
+            )}
         </div>
     );
 };
 
 export default RebuildCarsPage;
+
