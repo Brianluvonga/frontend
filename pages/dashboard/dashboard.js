@@ -6,6 +6,8 @@ import Payments from './payments/payments_page';
 import Sold from './cars/sold/sold_cars';
 import Rebuilds from './cars/rebuild/car_rebuilds';
 import Restored from './cars/fully_restored/full_restored';
+import Messages from './messages/messages';
+
 
 import axios from 'axios';
 
@@ -17,6 +19,8 @@ const Dashboard = () => {
     const [currentView, setCurrentView] = useState('dashboard');
     const [userCount, setUserCount] = useState(0);
     const [userCountError, setUserCountError] = useState(null);
+
+    const [unreadCount, setUnreadCount] = useState(0);
 
     useEffect(() => {
         const mediaQuery = window.matchMedia('(max-width: 640px)');
@@ -48,6 +52,22 @@ const Dashboard = () => {
 
         fetchUserCount();
     }, [])
+
+    useEffect(() => {
+        const fetchUnreadCount = async () => {
+            try {
+                const response = await axios.get('http://127.0.0.1:8000/messages/api/messages/unread_count/');
+                setUnreadCount(response.data.unread_count);
+            } catch (error) {
+                console.error('Error fetching unread count:', error);
+            }
+        };
+
+        fetchUnreadCount();
+        const interval = setInterval(fetchUnreadCount, 60000); // Update every minute
+
+        return () => clearInterval(interval);
+    }, []);
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -82,6 +102,8 @@ const Dashboard = () => {
                     </button>
                 </div>
                 <nav className="mt-8">
+                    <NavItem icon={<FiBell />} text="Messages" isOpen={isMenuOpen} onClick={() => setCurrentView('messages')} />
+
                     <NavItem icon={<FiTool />} text="Build Car" isOpen={isMenuOpen} onClick={() => setCurrentView('rebuilds')} />
                     <NavItem icon={<FiTruck />} text="Restored" isOpen={isMenuOpen} onClick={() => setCurrentView('restored')} />
                     <NavItem icon={<FiCheckCircle />} text="Sold" isOpen={isMenuOpen} onClick={() => setCurrentView('sold')} />
@@ -101,17 +123,19 @@ const Dashboard = () => {
                                 className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 focus:outline-none"
                             >
                                 <FiBell size={24} className="text-gray-600 hover:text-gray-800" />
+                                {unreadCount > 0 && (
+                                    <span className="absolute top-0 right-0 bg-red-500 text-white rounded-full px-2 py-1 text-xs">
+                                        {unreadCount}
+                                    </span>
+                                )}
                             </button>
                             {isNotificationMenuOpen && (
                                 <div className="absolute right-0 mt-2 w-64 bg-white rounded-md shadow-lg py-1 z-10">
                                     <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                        New message from user
+                                        You have {unreadCount} unread messages
                                     </a>
-                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                        Car sale completed
-                                    </a>
-                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                        New bid placed
+                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={() => setCurrentView('messages')}>
+                                        View all messages
                                     </a>
                                 </div>
                             )}
@@ -188,7 +212,10 @@ const Dashboard = () => {
                         <Rebuilds />
                     ) : currentView === 'restored' ? (
                         <Restored />
-                    ) : null}
+                    ) : currentView === 'messages' ? (
+                        <Messages />
+                    ) :
+                        null}
                 </main>
             </div>
         </div>

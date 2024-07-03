@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FiDownload, FiEye, FiFilter, FiChevronUp, FiChevronDown } from 'react-icons/fi';
+import { FiDownload, FiEye, FiFilter, FiChevronUp, FiChevronDown, FiX } from 'react-icons/fi';
 import axios from 'axios';
 
 const PaymentsPage = () => {
@@ -22,6 +22,18 @@ const PaymentsPage = () => {
 
     const [sortConfig, setSortConfig] = useState({ key: 'date', direction: 'desc' });
 
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+    const handlePaymentSelect = (payment) => {
+        setSelectedPayment(payment);
+        setIsPopupOpen(true);
+    };
+
+    const closePopup = () => {
+        setIsPopupOpen(false);
+        setSelectedPayment(null);
+    };
+
     useEffect(() => {
         fetchPayments();
         fetchPaymentStats();
@@ -32,8 +44,9 @@ const PaymentsPage = () => {
         setIsLoading(true);
         setError(null);
         try {
-            const response = await axios.get('http://127.0.0.1:8000/payments/');
-            setPayments(response.data.results || response.data);
+            const response = await axios.get('http://127.0.0.1:8000/payments/api/');
+            const paymentsData = response.data.results || response.data;
+            setPayments(Array.isArray(paymentsData) ? paymentsData : []);
         } catch (error) {
             console.error('Error fetching payments:', error);
             setError('Failed to fetch payments. Please try again later.');
@@ -46,7 +59,7 @@ const PaymentsPage = () => {
     const fetchPaymentStats = async () => {
         setStatsError(null);
         try {
-            const response = await axios.get('http://127.0.0.1:8000/payments/stats/');
+            const response = await axios.get('http://127.0.0.1:8000/payments/api/stats/');
             setStats(response.data);
         } catch (error) {
             console.error('Error fetching payment stats:', error);
@@ -56,7 +69,7 @@ const PaymentsPage = () => {
 
     const fetchRecentTransactions = async () => {
         try {
-            const response = await axios.get('http://127.0.0.1:8000/payments/recent/');
+            const response = await axios.get('http://127.0.0.1:8000/payments/api/recent/');
             setRecentTransactions(response.data.results || response.data);
         } catch (error) {
             console.error('Error fetching recent transactions:', error);
@@ -104,20 +117,20 @@ const PaymentsPage = () => {
         }
     };
 
-    const filteredPayments = payments.filter(payment => {
+    const filteredPayments = Array.isArray(payments) ? payments.filter(payment => {
         const matchesFilter = activeFilter === 'all' || payment.status.toLowerCase() === activeFilter;
         const matchesSearch = payment.user.toLowerCase().includes(searchTerm.toLowerCase()) ||
             payment.id.toString().includes(searchTerm);
         const matchesDateRange = (!dateRange.start || new Date(payment.date) >= new Date(dateRange.start)) &&
             (!dateRange.end || new Date(payment.date) <= new Date(dateRange.end));
         return matchesFilter && matchesSearch && matchesDateRange;
-    });
+    }) : [];
 
     const [selectedPayment, setSelectedPayment] = useState(null);
 
-    const handlePaymentSelect = (payment) => {
-        setSelectedPayment(payment);
-    };
+    // const handlePaymentSelect = (payment) => {
+    //     setSelectedPayment(payment);
+    // };
 
     const handleSort = (key) => {
         let direction = 'asc';
@@ -161,23 +174,23 @@ const PaymentsPage = () => {
                     <>
                         <div className="bg-white p-4 rounded shadow">
                             <h2 className="text-base font-semibold">Total Payments</h2>
-                            <p className="text-2xl font-bold">{stats.totalPayments}</p>
+                            <p className="text-1xl font-bold">{stats.totalPayments}</p>
                         </div>
                         <div className="bg-white p-4 rounded shadow">
                             <h2 className="text-base font-semibold">Total Amount</h2>
-                            <p className="text-2xl font-bold">${stats.totalAmount.toFixed(2)}</p>
+                            <p className="text-1xl font-bold">${stats.totalAmount.toFixed(2)}</p>
                         </div>
                         <div className="bg-white p-4 rounded shadow">
                             <h2 className="text-base font-semibold">Refunded Amount</h2>
-                            <p className="text-2xl font-bold">${stats.refundedAmount.toFixed(2)}</p>
+                            <p className="text-1xl font-bold">${stats.refundedAmount.toFixed(2)}</p>
                         </div>
                         <div className="bg-white p-4 rounded shadow">
                             <h2 className="text-base font-semibold">Reserve Amount</h2>
-                            <p className="text-2xl font-bold">${stats.reserveAmount.toFixed(2)}</p>
+                            <p className="text-1xl font-bold">${stats.reserveAmount.toFixed(2)}</p>
                         </div>
                         <div className="bg-white p-4 rounded shadow">
                             <h2 className="text-base font-semibold">Approved Amount</h2>
-                            <p className="text-2xl font-bold">${stats.approvedAmount.toFixed(2)}</p>
+                            <p className="text-1xl font-bold">${stats.approvedAmount.toFixed(2)}</p>
                         </div>
                     </>
                 )}
@@ -264,7 +277,7 @@ const PaymentsPage = () => {
                         {sortedTransactions.map((transaction) => (
                             <tr key={transaction.id} className="border-t">
                                 <td className="p-2 text-sm">{transaction.id}</td>
-                                <td className="p-2 text-sm">${transaction.amount.toFixed(2)}</td>
+                                <td className="p-2 text-sm">${transaction.amount}</td>
                                 <td className="p-2 text-sm">{new Date(transaction.date).toLocaleDateString()}</td>
                                 <td className="p-2 text-sm">{transaction.status}</td>
                                 <td className="p-2 text-sm">{transaction.user}</td>
@@ -297,7 +310,7 @@ const PaymentsPage = () => {
                                 filteredPayments.map((payment) => (
                                     <tr key={payment.id} className="border-t">
                                         <td className="p-2 text-sm">{payment.id}</td>
-                                        <td className="p-2 text-sm">${payment.amount.toFixed(2)}</td>
+                                        <td className="p-2 text-sm">${payment.amount}</td>
                                         <td className="p-2 text-sm">{new Date(payment.date).toLocaleDateString()}</td>
                                         <td className="p-2 text-sm">{payment.status}</td>
                                         <td className="p-2 text-sm">{payment.user}</td>
@@ -319,20 +332,61 @@ const PaymentsPage = () => {
                     </table>
                 )}
             </div>
-
-            {selectedPayment && (
-                <div className="mt-6 bg-white p-4 rounded shadow">
-                    <h2 className="text-xl font-bold mb-4">Payment Details</h2>
-                    <p><strong>ID:</strong> {selectedPayment.id}</p>
-                    <p><strong>Amount:</strong> ${selectedPayment.amount.toFixed(2)}</p>
-                    <p><strong>Date:</strong> {new Date(selectedPayment.date).toLocaleString()}</p>
-                    <p><strong>Status:</strong> {selectedPayment.status}</p>
-                    <p><strong>User:</strong> {selectedPayment.user}</p>
-                    {/* Add any additional payment details you want to display */}
-                </div>
+            {isPopupOpen && selectedPayment && (
+                <PaymentDetailsPopup payment={selectedPayment} onClose={closePopup} />
             )}
         </div>
     );
+};
+
+
+const PaymentDetailsPopup = ({ payment, onClose }) => {
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="relative bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+          aria-label="Close"
+        >
+          <FiX size={24} />
+        </button>
+        
+        <div className="p-6">
+          <h2 className="text-2xl font-bold mb-6 text-gray-800">Payment Details</h2>
+          
+          <div className="space-y-4">
+            <div className="flex justify-between items-center py-2 border-b border-gray-200">
+              <span className="text-sm font-medium text-gray-500">ID</span>
+              <span className="text-sm text-gray-900">{payment.id}</span>
+            </div>
+            <div className="flex justify-between items-center py-2 border-b border-gray-200">
+              <span className="text-sm font-medium text-gray-500">Amount</span>
+              <span className="text-sm text-gray-900 font-semibold">${payment.amount}</span>
+            </div>
+            <div className="flex justify-between items-center py-2 border-b border-gray-200">
+              <span className="text-sm font-medium text-gray-500">Date</span>
+              <span className="text-sm text-gray-900">{new Date(payment.date).toLocaleString()}</span>
+            </div>
+            <div className="flex justify-between items-center py-2 border-b border-gray-200">
+              <span className="text-sm font-medium text-gray-500">Status</span>
+              <span className={`text-sm font-medium px-2.5 py-0.5 rounded-full ${
+                payment.status === 'completed' ? 'bg-green-100 text-green-800' :
+                payment.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
+                'bg-red-100 text-red-800'
+              }`}>
+                {payment.status.charAt(0).toUpperCase() + payment.status.slice(1)}
+              </span>
+            </div>
+            <div className="flex justify-between items-center py-2">
+              <span className="text-sm font-medium text-gray-500">User</span>
+              <span className="text-sm text-gray-900">{payment.user}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default PaymentsPage;
