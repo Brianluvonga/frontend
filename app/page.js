@@ -5,11 +5,11 @@ import Navbar from 'pages/nav/Navbar';
 import Footer from 'pages/footer/Footer';
 import Rebuilds from 'pages/shop/rebuilds';
 import Dashboard from 'pages/dashboard/dashboard';
-import Message from 'pages/dashboard/messages/messages';
+import Profile from 'pages/admin/profile';
 
 
 
-import Search from 'pages/search/search';
+// import Register from 'pages/admin/login';
 import Buy from 'pages/shop/shop';
 
 import ContactSection from 'pages/contacts/contact';
@@ -31,7 +31,7 @@ export default function Home() {
       {/* <Navbar /> */}
 
       {/* partners */}
-      {/* <Message /> */}
+      {/* <Profile /> */}
 
        <Dashboard /> 
 

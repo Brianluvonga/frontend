@@ -209,6 +209,7 @@ const Upload = () => {
                             className="w-full"
                             accept="image/*"
                             required
+                            
                         />
                         {formData.rightside_imagePreview && (
                             <img src={formData.rightside_imagePreview} alt="Right Side Image Preview" className="mt-2 max-w-xs" />
@@ -226,6 +227,7 @@ const Upload = () => {
                             className="w-full"
                             accept="image/*"
                             required
+                            
                         />
                         {formData.leftside_imagePreview && (
                             <img src={formData.leftside_imagePreview} alt="Left Side Image Preview" className="mt-2 max-w-xs" />
@@ -243,6 +245,7 @@ const Upload = () => {
                             className="w-full"
                             accept="image/*"
                             required
+                            
                         />
                         {formData.inside_imagePreview && (
                             <img src={formData.inside_imagePreview} alt="Inside Image Preview" className="mt-2 max-w-xs" />
@@ -260,6 +263,7 @@ const Upload = () => {
                             className="w-full"
                             accept="image/*"
                             required
+                            
                         />
                         {formData.back_imagePreview && (
                             <img src={formData.back_imagePreview} alt="Back Image Preview" className="mt-2 max-w-xs" />

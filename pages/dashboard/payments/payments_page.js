@@ -251,41 +251,7 @@ const PaymentsPage = () => {
                 </div>
             </div>
 
-            <div className="bg-white rounded shadow overflow-x-auto mb-6">
-                <h2 className="text-xl font-bold p-4">Recent Transactions</h2>
-                <table className="w-full min-w-[640px]">
-                    <thead>
-                        <tr className="bg-gray-100">
-                            <th className="p-2 text-left cursor-pointer" onClick={() => handleSort('id')}>
-                                ID {sortConfig.key === 'id' && (sortConfig.direction === 'asc' ? <FiChevronUp /> : <FiChevronDown />)}
-                            </th>
-                            <th className="p-2 text-left cursor-pointer" onClick={() => handleSort('amount')}>
-                                Amount {sortConfig.key === 'amount' && (sortConfig.direction === 'asc' ? <FiChevronUp /> : <FiChevronDown />)}
-                            </th>
-                            <th className="p-2 text-left cursor-pointer" onClick={() => handleSort('date')}>
-                                Date {sortConfig.key === 'date' && (sortConfig.direction === 'asc' ? <FiChevronUp /> : <FiChevronDown />)}
-                            </th>
-                            <th className="p-2 text-left cursor-pointer" onClick={() => handleSort('status')}>
-                                Status {sortConfig.key === 'status' && (sortConfig.direction === 'asc' ? <FiChevronUp /> : <FiChevronDown />)}
-                            </th>
-                            <th className="p-2 text-left cursor-pointer" onClick={() => handleSort('user')}>
-                                User {sortConfig.key === 'user' && (sortConfig.direction === 'asc' ? <FiChevronUp /> : <FiChevronDown />)}
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {sortedTransactions.map((transaction) => (
-                            <tr key={transaction.id} className="border-t">
-                                <td className="p-2 text-sm">{transaction.id}</td>
-                                <td className="p-2 text-sm">${transaction.amount}</td>
-                                <td className="p-2 text-sm">{new Date(transaction.date).toLocaleDateString()}</td>
-                                <td className="p-2 text-sm">{transaction.status}</td>
-                                <td className="p-2 text-sm">{transaction.user}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+
 
             <div className="bg-white rounded shadow overflow-x-auto">
                 <h2 className="text-xl font-bold p-4">All Payments</h2>
@@ -332,6 +298,47 @@ const PaymentsPage = () => {
                     </table>
                 )}
             </div>
+
+            <div className="bg-white rounded shadow overflow-x-auto mb-6">
+                <h2 className="text-xl font-bold p-4">Recent Transactions</h2>
+                <table className="w-full min-w-[640px]">
+                    <thead>
+                        <tr className="bg-gray-100">
+                            <th className="p-2 text-left cursor-pointer" onClick={() => handleSort('id')}>
+                                ID {sortConfig.key === 'id' && (sortConfig.direction === 'asc' ? <FiChevronUp /> : <FiChevronDown />)}
+                            </th>
+                            <th className="p-2 text-left cursor-pointer" onClick={() => handleSort('amount')}>
+                                Amount {sortConfig.key === 'amount' && (sortConfig.direction === 'asc' ? <FiChevronUp /> : <FiChevronDown />)}
+                            </th>
+                            <th className="p-2 text-left cursor-pointer" onClick={() => handleSort('date')}>
+                                Date {sortConfig.key === 'date' && (sortConfig.direction === 'asc' ? <FiChevronUp /> : <FiChevronDown />)}
+                            </th>
+                            <th className="p-2 text-left cursor-pointer" onClick={() => handleSort('status')}>
+                                Status {sortConfig.key === 'status' && (sortConfig.direction === 'asc' ? <FiChevronUp /> : <FiChevronDown />)}
+                            </th>
+                            <th className="p-2 text-left cursor-pointer" onClick={() => handleSort('user')}>
+                                User {sortConfig.key === 'user' && (sortConfig.direction === 'asc' ? <FiChevronUp /> : <FiChevronDown />)}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {sortedTransactions.map((transaction) => (
+                            <tr key={transaction.id} className="border-t">
+                                <td className="p-2 text-sm">{transaction.id}</td>
+                                <td className="p-2 text-sm">${transaction.amount}</td>
+                                <td className="p-2 text-sm">{new Date(transaction.date).toLocaleDateString()}</td>
+                                <td className="p-2 text-sm">{transaction.status}</td>
+                                <td className="p-2 text-sm">{transaction.user}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+
+
+
+
+
             {isPopupOpen && selectedPayment && (
                 <PaymentDetailsPopup payment={selectedPayment} onClose={closePopup} />
             )}
@@ -341,52 +348,51 @@ const PaymentsPage = () => {
 
 
 const PaymentDetailsPopup = ({ payment, onClose }) => {
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="relative bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
-          aria-label="Close"
-        >
-          <FiX size={24} />
-        </button>
-        
-        <div className="p-6">
-          <h2 className="text-2xl font-bold mb-6 text-gray-800">Payment Details</h2>
-          
-          <div className="space-y-4">
-            <div className="flex justify-between items-center py-2 border-b border-gray-200">
-              <span className="text-sm font-medium text-gray-500">ID</span>
-              <span className="text-sm text-gray-900">{payment.id}</span>
+    return (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="relative bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
+                <button
+                    onClick={onClose}
+                    className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+                    aria-label="Close"
+                >
+                    <FiX size={24} />
+                </button>
+
+                <div className="p-6">
+                    <h2 className="text-2xl font-bold mb-6 text-gray-800">Payment Details</h2>
+
+                    <div className="space-y-4">
+                        <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                            <span className="text-sm font-medium text-gray-500">ID</span>
+                            <span className="text-sm text-gray-900">{payment.id}</span>
+                        </div>
+                        <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                            <span className="text-sm font-medium text-gray-500">Amount</span>
+                            <span className="text-sm text-gray-900 font-semibold">${payment.amount}</span>
+                        </div>
+                        <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                            <span className="text-sm font-medium text-gray-500">Date</span>
+                            <span className="text-sm text-gray-900">{new Date(payment.date).toLocaleString()}</span>
+                        </div>
+                        <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                            <span className="text-sm font-medium text-gray-500">Status</span>
+                            <span className={`text-sm font-medium px-2.5 py-0.5 rounded-full ${payment.status === 'completed' ? 'bg-green-100 text-green-800' :
+                                    payment.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
+                                        'bg-red-100 text-red-800'
+                                }`}>
+                                {payment.status.charAt(0).toUpperCase() + payment.status.slice(1)}
+                            </span>
+                        </div>
+                        <div className="flex justify-between items-center py-2">
+                            <span className="text-sm font-medium text-gray-500">User</span>
+                            <span className="text-sm text-gray-900">{payment.user}</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div className="flex justify-between items-center py-2 border-b border-gray-200">
-              <span className="text-sm font-medium text-gray-500">Amount</span>
-              <span className="text-sm text-gray-900 font-semibold">${payment.amount}</span>
-            </div>
-            <div className="flex justify-between items-center py-2 border-b border-gray-200">
-              <span className="text-sm font-medium text-gray-500">Date</span>
-              <span className="text-sm text-gray-900">{new Date(payment.date).toLocaleString()}</span>
-            </div>
-            <div className="flex justify-between items-center py-2 border-b border-gray-200">
-              <span className="text-sm font-medium text-gray-500">Status</span>
-              <span className={`text-sm font-medium px-2.5 py-0.5 rounded-full ${
-                payment.status === 'completed' ? 'bg-green-100 text-green-800' :
-                payment.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
-                'bg-red-100 text-red-800'
-              }`}>
-                {payment.status.charAt(0).toUpperCase() + payment.status.slice(1)}
-              </span>
-            </div>
-            <div className="flex justify-between items-center py-2">
-              <span className="text-sm font-medium text-gray-500">User</span>
-              <span className="text-sm text-gray-900">{payment.user}</span>
-            </div>
-          </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default PaymentsPage;

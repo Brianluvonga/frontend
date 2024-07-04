@@ -3,6 +3,7 @@ import { FiSearch, FiEdit, FiTrash2, FiFlag, FiEye } from 'react-icons/fi';
 import axios from 'axios';
 import CarDetailsPopup from './car_detail';
 
+const API_BASE_URL = 'http://127.0.0.1:8000';
 
 const RebuildCarsPage = () => {
     const [carParts, setCarParts] = useState([]);
@@ -24,7 +25,7 @@ const RebuildCarsPage = () => {
     const fetchData = async () => {
         setIsLoading(true);
         try {
-            const response = await axios.get('http://127.0.0.1:8000/parts/car_parts/');
+            const response = await axios.get(`${API_BASE_URL}/parts/car_parts/`);
             setCarParts(response.data);
             setFilteredCarParts(response.data);
             updateStats(response.data);
@@ -58,34 +59,43 @@ const RebuildCarsPage = () => {
     };
 
     const handleEdit = (id) => {
+        // Implement edit functionality
         console.log(`Edit part with id: ${id}`);
+        // You might want to open a modal or navigate to an edit page here
     };
 
     const handleDelete = async (id) => {
-        try {
-            await axios.delete(`http://127.0.0.1:8000/parts/${id}`);
-            const updatedParts = carParts.filter(part => part.id !== id);
-            setCarParts(updatedParts);
-            setFilteredCarParts(updatedParts);
-            updateStats(updatedParts);
-        } catch (error) {
-            console.error('Error deleting part:', error);
-            setError('Failed to delete part. Please try again.');
+        const isConfirmed = window.confirm("Are you sure you want to delete this part?");
+        if (isConfirmed) {
+            try {
+                await axios.delete(`${API_BASE_URL}/parts/car_parts/${id}/`);
+                const updatedParts = carParts.filter(part => part.id !== id);
+                setCarParts(updatedParts);
+                setFilteredCarParts(updatedParts);
+                updateStats(updatedParts);
+            } catch (error) {
+                console.error('Error deleting part:', error);
+                setError('Failed to delete part. Please try again.');
+            }
         }
     };
 
     const handleFlag = async (id) => {
-        try {
-            const part = carParts.find(p => p.id === id);
-            const updatedPart = { ...part, flagged: !part.flagged };
-            await axios.put(`http://127.0.0.1:8000/parts/${id}`, updatedPart);
-            const updatedParts = carParts.map(p => p.id === id ? updatedPart : p);
-            setCarParts(updatedParts);
-            setFilteredCarParts(updatedParts);
-            updateStats(updatedParts);
-        } catch (error) {
-            console.error('Error flagging part:', error);
-            setError('Failed to flag part. Please try again.');
+        const part = carParts.find(p => p.id === id);
+        const action = part.flagged ? "unflag" : "flag";
+        const isConfirmed = window.confirm(`Are you sure you want to ${action} this part?`);
+        if (isConfirmed) {
+            try {
+                const response = await axios.put(`${API_BASE_URL}/parts/car_parts/${id}/flag/`);
+                const updatedPart = response.data;
+                const updatedParts = carParts.map(p => p.id === id ? updatedPart : p);
+                setCarParts(updatedParts);
+                setFilteredCarParts(updatedParts);
+                updateStats(updatedParts);
+            } catch (error) {
+                console.error('Error flagging part:', error);
+                setError(`Failed to ${action} part. Please try again.`);
+            }
         }
     };
 
@@ -97,6 +107,7 @@ const RebuildCarsPage = () => {
     const closePopup = () => {
         setSelectedPart(null);
     };
+
     return (
         <div className="container mx-auto px-4 py-8">
             <h1 className="text-2xl font-bold mb-6">Car Parts</h1>
@@ -188,4 +199,3 @@ const RebuildCarsPage = () => {
 };
 
 export default RebuildCarsPage;
-
