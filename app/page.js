@@ -5,7 +5,7 @@ import Navbar from 'pages/nav/Navbar';
 import Footer from 'pages/footer/Footer';
 import Rebuilds from 'pages/shop/rebuilds';
 import Dashboard from 'pages/dashboard/dashboard';
-import Profile from 'pages/admin/profile';
+import Store from 'pages/store/store';
 
 
 
@@ -31,9 +31,9 @@ export default function Home() {
       {/* <Navbar /> */}
 
       {/* partners */}
-      {/* <Profile /> */}
+      <Store />
 
-       <Dashboard /> 
+       {/* <Dashboard />  */}
 
       {/* Rebuilds */}
       {/* <Rebuilds /> */}
