@@ -14,7 +14,8 @@ export default function CarDashboard() {
 
     const fetchCars = async () => {
         try {
-            const response = await axios.get('http://127.0.0.1:8000/rebuild/api/');
+            const response = await axios.get('http://127.0.0.1:8000/rebuild/car_parts/');
+            console.log('API Response', response.data)
             setCars(response.data);
         } catch (error) {
             console.error('Error fetching cars:', error);

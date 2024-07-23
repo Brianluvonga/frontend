@@ -6,6 +6,12 @@ import Footer from 'pages/footer/Footer';
 import Rebuilds from 'pages/shop/rebuilds';
 import Dashboard from 'pages/dashboard/dashboard';
 import Store from 'pages/store/store';
+// import User from 'pages/account/user/profile';
+import Partners from 'pages/shop/parts/upload_part';
+import Parts from 'pages/shop/parts/parts';
+
+
+
 
 
 
@@ -33,7 +39,9 @@ export default function Home() {
       {/* partners */}
       <Store />
 
-       {/* <Dashboard />  */}
+       {/* <Dashboard /> */}
+       {/* <Parts />  */}
+
 
       {/* Rebuilds */}
       {/* <Rebuilds /> */}

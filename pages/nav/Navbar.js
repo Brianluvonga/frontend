@@ -87,7 +87,7 @@ const Navbar = () => {
                     
                 </div>
                 <div>
-                    <Link href='/admin/login' className="inline-flex items-center p-2 ml-auto text-white font-bold bg-black hover:bg-gray-500 focus:ring-4 font-serif focus:outline-none focus:ring-blue-300 rounded-full text-sm px-4 py-2 text-center md:mr-3 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    <Link href='/account/login' className="inline-flex items-center p-2 ml-auto text-white font-bold bg-black hover:bg-gray-500 focus:ring-4 font-serif focus:outline-none focus:ring-blue-300 rounded-full text-sm px-4 py-2 text-center md:mr-3 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Get Started
                     </Link>
                 </div>
